@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Licencias - VentaMaestra 2.0</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="naranja-theme.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .license-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    h1 {
+      color: #ff6600;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .status-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .status-card.trial {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+    .status-card.full {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+    .status-card.expired {
+      background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    }
+    .status-card h2 {
+      margin: 0 0 15px 0;
+      font-size: 28px;
+    }
+    .status-card .days-left {
+      font-size: 48px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .info-item {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      border-left: 4px solid #ff6600;
+    }
+    .info-item label {
+      display: block;
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+    .info-item .value {
+      color: #333;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .form-group {
+      margin: 20px 0;
+    }
+    label {
+      display: block;
+      color: #333;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    input:focus {
+      outline: none;
+      border-color: #ff6600;
+    }
+    .button {
+      background: #ff6600;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      width: 100%;
+      margin: 10px 0;
+      transition: background 0.3s;
+    }
+    .button:hover {
+      background: #ff8c00;
+    }
+    .button.secondary {
+      background: #28a745;
+    }
+    .button.secondary:hover {
+      background: #218838;
+    }
+    .card {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 25px;
+      margin: 20px 0;
+    }
+    .card h3 {
+      color: #ff6600;
+      margin-top: 0;
+    }
+    .alert {
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .alert-info {
+      background: #d1ecf1;
+      border-left: 5px solid #17a2b8;
+      color: #0c5460;
+    }
+    .alert-warning {
+      background: #fff3cd;
+      border-left: 5px solid #ffc107;
+      color: #856404;
+    }
+    .alert-success {
+      background: #d4edda;
+      border-left: 5px solid #28a745;
+      color: #155724;
+    }
+  </style>
+</head>
+<body>
+  <div class="license-container">
+    <h1>🔐 Gestión de Licencias</h1>
+    
+    <!-- Estado Actual -->
+    <div id="statusCard" class="status-card">
+      <h2 id="statusTitle">⏳ Verificando licencia...</h2>
+      <div class="days-left" id="daysLeft">-</div>
+      <p id="statusMessage">Cargando información...</p>
+    </div>
+
+    <!-- Información de la Licencia -->
+    <div class="info-grid" id="licenseInfo" style="display: none;">
+      <div class="info-item">
+        <label>Negocio</label>
+        <div class="value" id="businessName">-</div>
+      </div>
+      <div class="info-item">
+        <label>Dirección</label>
+        <div class="value" id="businessAddress">-</div>
+      </div>
+      <div class="info-item">
+        <label>Código de Licencia</label>
+        <div class="value" style="font-size: 12px;" id="licenseCode">-</div>
+      </div>
+      <div class="info-item">
+        <label>Fecha de Activación</label>
+        <div class="value" id="activationDate">-</div>
+      </div>
+      <div class="info-item">
+        <label>Fecha de Vencimiento</label>
+        <div class="value" id="expirationDate">-</div>
+      </div>
+      <div class="info-item">
+        <label>Tipo de Licencia</label>
+        <div class="value" id="licenseType">-</div>
+      </div>
+    </div>
+
+    <!-- Activar Licencia Full -->
+    <div class="card" id="activationCard">
+      <h3>🎁 Activar Licencia Completa</h3>
+      <div class="alert alert-info">
+        <strong>ℹ️ ¿Cómo activar?</strong>
+        <ul style="margin: 10px 0 0 20px;">
+          <li>Solicita tu código de licencia al administrador</li>
+          <li>Ingresa el código en el campo de abajo</li>
+          <li>Tu licencia de prueba se convertirá en licencia completa por 1 año</li>
+        </ul>
+      </div>
+      
+      <div class="form-group">
+        <label for="activationCode">Código de Licencia Full:</label>
+        <input type="text" id="activationCode" placeholder="Ej: VM2-PRO-XXXXX-XXXX-XXX" style="text-transform: uppercase;">
+      </div>
+      
+      <button class="button" onclick="activateLicense()">✅ Activar Licencia</button>
+    </div>
+
+    <!-- Crear Licencia Trial (Primera vez) -->
+    <div class="card" id="createTrialCard" style="display: none;">
+      <h3>🎉 Iniciar Prueba Gratuita de 15 Días</h3>
+      <div class="alert alert-success">
+        <strong>✅ Beneficios de la prueba gratuita:</strong>
+        <ul style="margin: 10px 0 0 20px;">
+          <li>Acceso completo a todas las funciones</li>
+          <li>Sin límite de productos o ventas</li>
+          <li>15 días para probar el sistema</li>
+          <li>Sin tarjeta de crédito requerida</li>
+        </ul>
+      </div>
+      
+      <div class="form-group">
+        <label for="newBusinessName">Nombre de tu Negocio:</label>
+        <input type="text" id="newBusinessName" placeholder="Ej: Abarrotes San Juan">
+      </div>
+      
+      <div class="form-group">
+        <label for="newBusinessAddress">Dirección:</label>
+        <input type="text" id="newBusinessAddress" placeholder="Ej: Calle Principal #123, Colonia Centro">
+      </div>
+      
+      <button class="button secondary" onclick="createTrialLicense()">🚀 Iniciar Prueba Gratuita</button>
+    </div>
+
+    <!-- Exportar/Importar Licencia -->
+    <div class="card" id="manageCard" style="display: none;">
+      <h3>⚙️ Gestionar Licencia</h3>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <button class="button" onclick="exportLicense()">📤 Exportar Licencia</button>
+        <button class="button secondary" onclick="document.getElementById('importFile').click()">📥 Importar Licencia</button>
+      </div>
+      
+      <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importLicense(event)">
+      
+      <div class="alert alert-warning" style="margin-top: 15px;">
+        <strong>⚠️ Advertencia:</strong> Importar una licencia reemplazará la actual. Asegúrate de exportar primero si necesitas respaldo.
+      </div>
+    </div>
+
+    <!-- Botones de navegación -->
+    <div style="margin-top: 30px; display: flex; gap: 15px;">
+      <button class="button" onclick="window.location.href='index.html'" style="flex: 1;">
+        ← Volver al TPV
+      </button>
+      <button class="button secondary" onclick="window.location.href='generador-licencias.html'" style="flex: 1;">
+        🔑 Generador de Licencias (Admin)
+      </button>
+    </div>
+  </div>
+
+  <script src="licencia.js"></script>
+  <script>
+    let licenseManager;
+    
+    window.addEventListener('DOMContentLoaded', () => {
+      licenseManager = new LicenseManager();
+      updateLicenseDisplay();
+    });
+    
+    function updateLicenseDisplay() {
+      const license = licenseManager.getLicense();
+      const statusCard = document.getElementById('statusCard');
+      const statusTitle = document.getElementById('statusTitle');
+      const daysLeft = document.getElementById('daysLeft');
+      const statusMessage = document.getElementById('statusMessage');
+      const licenseInfo = document.getElementById('licenseInfo');
+      const createTrialCard = document.getElementById('createTrialCard');
+      const activationCard = document.getElementById('activationCard');
+      const manageCard = document.getElementById('manageCard');
+      
+      if (!license) {
+        // No hay licencia - mostrar opción de crear trial
+        statusCard.className = 'status-card expired';
+        statusTitle.textContent = '🎁 ¡Bienvenido a VentaMaestra 2.0!';
+        daysLeft.textContent = '15 días';
+        statusMessage.textContent = 'Inicia tu prueba gratuita ahora';
+        createTrialCard.style.display = 'block';
+        activationCard.style.display = 'none';
+        manageCard.style.display = 'none';
+        licenseInfo.style.display = 'none';
+        return;
+      }
+      
+      // Hay licencia - verificar estado
+      const status = licenseManager.checkLicenseStatus();
+      
+      // Actualizar tarjeta de estado
+      if (status.type === 'TRIAL') {
+        statusCard.className = 'status-card trial';
+        statusTitle.textContent = '🆓 Prueba Gratuita';
+        daysLeft.textContent = `${status.daysRemaining} día${status.daysRemaining !== 1 ? 's' : ''}`;
+        
+        if (status.valid) {
+          statusMessage.textContent = status.daysRemaining <= 3 
+            ? '⚠️ Tu prueba está por vencer. Activa la licencia completa.' 
+            : 'Disfrutando de la prueba gratuita';
+        } else {
+          statusMessage.textContent = '❌ Tu prueba ha expirado. Activa una licencia completa.';
+        }
+      } else if (status.type === 'FULL') {
+        statusCard.className = 'status-card full';
+        statusTitle.textContent = '✅ Licencia Completa';
+        daysLeft.textContent = `${status.daysRemaining} día${status.daysRemaining !== 1 ? 's' : ''}`;
+        
+        if (status.valid) {
+          statusMessage.textContent = status.daysRemaining <= 30 
+            ? `Tu licencia vence pronto. Considera renovarla.` 
+            : 'Sistema activo y funcionando';
+        } else {
+          statusMessage.textContent = '❌ Tu licencia ha expirado. Contacta al administrador.';
+        }
+      }
+      
+      // Mostrar información de la licencia
+      licenseInfo.style.display = 'grid';
+      document.getElementById('businessName').textContent = license.businessName || '-';
+      document.getElementById('businessAddress').textContent = license.businessAddress || '-';
+      document.getElementById('licenseCode').textContent = license.licenseCode || '-';
+      document.getElementById('activationDate').textContent = new Date(license.createdAt).toLocaleDateString('es-MX') || '-';
+      document.getElementById('expirationDate').textContent = new Date(license.expirationDate).toLocaleDateString('es-MX') || '-';
+      document.getElementById('licenseType').textContent = status.type === 'TRIAL' ? 'Prueba (15 días)' : 'Completa (1 año)';
+      
+      // Mostrar/ocultar secciones según el estado
+      createTrialCard.style.display = 'none';
+      activationCard.style.display = status.type === 'TRIAL' ? 'block' : 'none';
+      manageCard.style.display = 'block';
+    }
+    
+    function createTrialLicense() {
+      const businessName = document.getElementById('newBusinessName').value.trim();
+      const businessAddress = document.getElementById('newBusinessAddress').value.trim();
+      
+      if (!businessName) {
+        alert('Por favor ingresa el nombre de tu negocio');
+        return;
+      }
+      
+      if (!businessAddress) {
+        alert('Por favor ingresa la dirección de tu negocio');
+        return;
+      }
+      
+      licenseManager.createLicense(businessName, businessAddress, '', false);
+      
+      alert('✅ ¡Prueba gratuita activada!\n\n' +
+            'Tienes 15 días para probar VentaMaestra 2.0.\n' +
+            'Todas las funciones están disponibles.\n\n' +
+            '¡Disfruta tu prueba!');
+      
+      updateLicenseDisplay();
+    }
+    
+    function activateLicense() {
+      const code = document.getElementById('activationCode').value.trim().toUpperCase();
+      
+      if (!code) {
+        alert('Por favor ingresa un código de licencia');
+        return;
+      }
+      
+      if (!code.startsWith('VM2-PRO-')) {
+        alert('❌ Código de licencia inválido\n\nEl código debe comenzar con "VM2-PRO-"');
+        return;
+      }
+      
+      const success = licenseManager.activatePaidLicense(code);
+      
+      if (success) {
+        alert('🎉 ¡LICENCIA ACTIVADA EXITOSAMENTE!\n\n' +
+              'Tu cuenta ahora es una licencia completa por 1 año.\n' +
+              'Gracias por confiar en VentaMaestra 2.0.\n\n' +
+              'Disfruta de todas las funciones sin límites.');
+        document.getElementById('activationCode').value = '';
+        updateLicenseDisplay();
+      } else {
+        alert('❌ Error al activar la licencia\n\n' +
+              'Verifica que el código sea correcto y que no haya expirado.');
+      }
+    }
+    
+    function exportLicense() {
+      const exported = licenseManager.exportLicense();
+      
+      const blob = new Blob([exported], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `VentaMaestra-Licencia-${Date.now()}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      alert('✅ Licencia exportada correctamente');
+    }
+    
+    function importLicense(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const success = licenseManager.importLicense(e.target.result);
+          if (success) {
+            alert('✅ Licencia importada correctamente');
+            updateLicenseDisplay();
+          } else {
+            alert('❌ Error al importar la licencia\n\nVerifica que el archivo sea válido.');
+          }
+        } catch (error) {
+          alert('❌ Error al leer el archivo\n\n' + error.message);
+        }
+      };
+      reader.readAsText(file);
+      
+      // Limpiar el input
+      event.target.value = '';
+    }
+  </script>
+</body>
+</html>

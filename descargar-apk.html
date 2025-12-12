@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Descargar APK - VentaMaestra</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      max-width: 600px;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      color: #333;
+      text-align: center;
+    }
+    h1 {
+      color: #ff6600;
+      margin-bottom: 20px;
+      font-size: 2.5em;
+    }
+    .success {
+      background: #d4edda;
+      border-left: 5px solid #28a745;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 5px;
+      color: #155724;
+      text-align: left;
+    }
+    .download-btn {
+      display: inline-block;
+      background: #28a745;
+      color: white;
+      padding: 20px 40px;
+      border: none;
+      border-radius: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      text-decoration: none;
+      margin: 20px 0;
+      transition: background 0.3s;
+      box-shadow: 0 4px 15px rgba(40,167,69,0.3);
+    }
+    .download-btn:hover {
+      background: #218838;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(40,167,69,0.4);
+    }
+    .steps {
+      text-align: left;
+      margin: 30px 0;
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .step {
+      padding: 10px 0;
+      border-bottom: 1px solid #dee2e6;
+    }
+    .step:last-child {
+      border-bottom: none;
+    }
+    .step-number {
+      display: inline-block;
+      background: #ff6600;
+      color: white;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      border-radius: 50%;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+    .warning {
+      background: #fff3cd;
+      border-left: 5px solid #ffc107;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 5px;
+      color: #856404;
+      text-align: left;
+    }
+    .icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">📱</div>
+    <h1>¡APK Lista!</h1>
+    
+    <div class="success">
+      <strong>✅ VentaMaestra APK Generada Exitosamente</strong>
+      <p style="margin-top: 10px;">Tamaño aproximado: ~7 MB</p>
+    </div>
+
+    <a href="app-release-unsigned-aligned.apk" download="VentaMaestra.apk" class="download-btn">
+      ⬇️ Descargar APK
+    </a>
+
+    <div class="warning">
+      <strong>⚠️ NOTA:</strong> Esta APK no está firmada oficialmente. Al instalar, Android mostrará una advertencia de "Origen desconocido". Es normal y seguro para uso personal.
+    </div>
+
+    <div class="steps">
+      <h3 style="color: #ff6600; margin-bottom: 15px;">📋 Cómo instalar:</h3>
+      
+      <div class="step">
+        <span class="step-number">1</span>
+        <strong>Descarga la APK</strong> en tu celular o computadora
+      </div>
+
+      <div class="step">
+        <span class="step-number">2</span>
+        Si descargaste en PC, <strong>copia el archivo al celular</strong> por USB o Bluetooth
+      </div>
+
+      <div class="step">
+        <span class="step-number">3</span>
+        En el celular, <strong>abre el archivo VentaMaestra.apk</strong>
+      </div>
+
+      <div class="step">
+        <span class="step-number">4</span>
+        Android pedirá permiso para <strong>"Instalar desde origen desconocido"</strong> - dale permiso
+      </div>
+
+      <div class="step">
+        <span class="step-number">5</span>
+        Toca <strong>"Instalar"</strong> y espera unos segundos
+      </div>
+
+      <div class="step">
+        <span class="step-number">6</span>
+        <strong>¡Listo!</strong> Busca "VentaMaestra" en tu menú de apps
+      </div>
+    </div>
+
+    <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #dee2e6;">
+      <p style="color: #666; font-size: 14px;">
+        <strong>Tip:</strong> También puedes usar la versión web desde<br>
+        <strong>http://192.168.1.101:9000</strong>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

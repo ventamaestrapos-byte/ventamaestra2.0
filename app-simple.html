@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>VentaMaestra 2.0</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Segoe UI', sans-serif; 
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container { 
+      max-width: 500px; 
+      margin: 20px; 
+      background: white; 
+      border-radius: 20px; 
+      padding: 40px; 
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    h1 { color: #ff8c00; font-size: 2em; margin-bottom: 10px; }
+    .logo { font-size: 4em; margin: 20px 0; }
+    .btn { 
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin: 10px 0;
+      text-decoration: none;
+      display: block;
+    }
+    .info { color: #666; margin: 20px 0; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">🧾</div>
+    <h1>VentaMaestra 2.0</h1>
+    <p style="color: #999; margin-bottom: 30px;">Sistema de Punto de Venta</p>
+    
+    <div class="info">
+      <strong>Instalación completada ✅</strong><br><br>
+      Para usar la aplicación completa, tienes 2 opciones:
+    </div>
+
+    <button class="btn" onclick="window.location.href='http://192.168.1.104:4000/inicio.html'">
+      🌐 Abrir desde tu red local
+    </button>
+
+    <button class="btn" style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);" onclick="showInstructions()">
+      📖 Ver instrucciones
+    </button>
+
+    <div id="instructions" style="display:none; margin-top: 20px; text-align: left; background: #f8f9fa; padding: 20px; border-radius: 10px;">
+      <h3 style="color: #ff8c00;">📱 Cómo usar:</h3>
+      <ol style="line-height: 2; color: #333;">
+        <li>Conecta tu dispositivo a la misma red WiFi que tu PC</li>
+        <li>Asegúrate que el servidor esté corriendo en tu PC</li>
+        <li>Presiona el botón "Abrir desde tu red local"</li>
+        <li>¡Listo! La app funcionará completa</li>
+      </ol>
+      <p style="margin-top: 15px; color: #666; font-size: 0.9em;">
+        <strong>Nota:</strong> Si no estás en tu red local, descarga el ZIP completo y ábrelo localmente.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function showInstructions() {
+      document.getElementById('instructions').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

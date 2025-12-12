@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VentaMaestra 2.0</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ff6600">
+  <link rel="apple-touch-icon" href="icon-192.svg">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      width: 100%;
+    }
+    .header {
+      text-align: center;
+      color: white;
+      margin-bottom: 40px;
+    }
+    .header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    .header .version {
+      font-size: 1.5rem;
+      opacity: 0.9;
+    }
+    .header p {
+      font-size: 1.2rem;
+      margin-top: 15px;
+      opacity: 0.95;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(255,140,0,0.4);
+    }
+    .card-icon {
+      font-size: 4rem;
+      margin-bottom: 15px;
+    }
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #ff8c00;
+    }
+    .card-desc {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.5;
+    }
+    .card.admin {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+    }
+    .card.admin .card-title {
+      color: white;
+    }
+    .card.admin .card-desc {
+      color: rgba(255,255,255,0.9);
+    }
+    .footer {
+      text-align: center;
+      color: white;
+      margin-top: 30px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 768 768'%3E%3Cpath fill='%23ff8c00' d='M384 50L120 200v350l264 150 264-150V200L384 50zm0 50l214 130v290l-214 122-214-122V230L384 100z'/%3E%3Cpath fill='%23ff8c00' d='M270 280h60v30h-60zm90 0h60v30h-60zm90 0h60v30h-60zm-180 50h60v30h-60zm90 0h60v30h-60zm90 0h60v30h-60zm-180 50h60v30h-60zm90 0h60v30h-60zm90 0h60v30h-60z'/%3E%3Ctext x='460' y='300' fill='%23ff8c00' font-size='80' font-weight='bold'%3E2.0%3C/text%3E%3C/svg%3E" alt="VentaMaestra Logo" style="width: 120px; height: 120px; margin-bottom: 20px;">
+      <h1>VentaMaestra <span class="version">2.0</span></h1>
+      <p>Sistema Completo de Punto de Venta Multi-Tienda</p>
+    </div>
+
+    <div class="cards-grid">
+      <!-- Panel Administrador Global -->
+      <a href="admin.html" class="card admin">
+        <div class="card-icon">👑</div>
+        <div class="card-title">Panel Administrador Global</div>
+        <div class="card-desc">
+          <strong>Solo para el dueño de VentaMaestra</strong><br>
+          Generar licencias, URLs de tienda, gestionar todos los clientes
+        </div>
+      </a>
+
+      <!-- Manual del Dueño -->
+      <a href="manual-dueño.html" class="card" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white;">
+        <div class="card-icon">📚</div>
+        <div class="card-title" style="color: white;">Manual del Dueño</div>
+        <div class="card-desc" style="color: rgba(255,255,255,0.95);">
+          Ver guía completa de administración (puede imprimir/descargar PDF)
+        </div>
+      </a>
+
+      <!-- Activar Licencia -->
+      <a href="licencias.html" class="card">
+        <div class="card-icon">🔑</div>
+        <div class="card-title">Activar Licencia</div>
+        <div class="card-desc">
+          Clientes: Active su licencia y configure su tienda
+        </div>
+      </a>
+
+      <!-- Login Sistema -->
+      <a href="login.html" class="card">
+        <div class="card-icon">🚪</div>
+        <div class="card-title">Acceder al Sistema</div>
+        <div class="card-desc">
+          Iniciar sesión en el TPV con usuario y contraseña
+        </div>
+      </a>
+
+      <!-- TPV Directo -->
+      <a href="index.html" class="card">
+        <div class="card-icon">🧾</div>
+        <div class="card-title">TPV Directo</div>
+        <div class="card-desc">
+          Ir directamente al punto de venta (requiere licencia activa)
+        </div>
+      </a>
+
+      <!-- Instalar APK Ahora -->
+      <a href="instalar-apk-ahora.html" class="card" style="background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); color: white;">
+        <div class="card-icon" style="font-size: 3rem;">⚡</div>
+        <div class="card-title" style="color: white;">Instalar APK AHORA</div>
+        <div class="card-desc" style="color: rgba(255,255,255,0.95);">
+          Usa la app en 2 minutos - Sin esperar Play Store
+        </div>
+      </a>
+
+      <!-- Instalar en Negocio Remoto -->
+      <a href="instalar-negocio-remoto.html" class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <div class="card-icon" style="font-size: 3rem;">🏪</div>
+        <div class="card-title" style="color: white;">Instalar en Negocio Remoto</div>
+        <div class="card-desc" style="color: rgba(255,255,255,0.95);">
+          Soluciones para usar la app lejos de tu PC principal
+        </div>
+      </a>
+
+      <!-- Generar APK -->
+      <a href="generar-apk.html" class="card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white;">
+        <div class="card-icon" style="font-size: 3rem;">📱</div>
+        <div class="card-title" style="color: white;">Generar APK Android</div>
+        <div class="card-desc" style="color: rgba(255,255,255,0.95);">
+          Todas las opciones para crear APK (PWA Builder, Cordova, etc)
+        </div>
+      </a>
+    </div>
+
+    <div class="footer">
+      <p>VentaMaestra 2.0 © 2025 - Sistema de Gestión Comercial</p>
+      <p style="margin-top: 10px; font-size: 0.85rem;">
+        Puerto: 4000 | Localhost Only | Sin conexión a internet
+      </p>
+    </div>
+  </div>
+
+  <script src="licencia.js"></script>
+  <script>
+    // Verificar si el servidor está corriendo
+    window.addEventListener('load', () => {
+      console.log('%c VentaMaestra 2.0 ', 'background: #667eea; color: white; font-size: 20px; padding: 10px;');
+      console.log('Sistema iniciado correctamente');
+      console.log('Puerto: 4000');
+      console.log('Panel Admin: http://localhost:4000/admin.html');
+      console.log('Contraseña maestra: VentaMaestra2024!Admin');
+
+      // Mostrar información de licencia si existe
+      const license = licenseManager.getLicense();
+      if (license) {
+        console.log('%c Licencia Activa ', 'background: #4CAF50; color: white; font-weight: bold; padding: 5px;');
+        console.log('Negocio:', license.businessName);
+        console.log('Código:', license.code);
+      } else {
+        console.log('%c Pendiente Activación ', 'background: #ff9800; color: white; font-weight: bold; padding: 5px;');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Administrador Global - VentaMaestra 2.0</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="naranja-theme.css">
+  <script src="licencia.js"></script>
+  <script src="license-check.js"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .admin-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .admin-header {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .admin-header h1 {
+      margin: 0 0 10px 0;
+      color: #ff8c00;
+      font-size: 2.5rem;
+    }
+    .admin-header .subtitle {
+      color: #666;
+      font-size: 1.1rem;
+    }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+    .admin-card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .admin-card h2 {
+      margin: 0 0 20px 0;
+      color: #ff8c00;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .admin-card h2 .icon {
+      font-size: 2rem;
+    }
+    .auth-form {
+      margin-bottom: 20px;
+    }
+    .input-group {
+      margin-bottom: 15px;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #333;
+    }
+    .input-group input, .input-group select, .input-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+    }
+    .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 100%;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      color: white;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
+    }
+    .btn-success {
+      background: #4caf50;
+      color: white;
+    }
+    .btn-warning {
+      background: #ff9800;
+      color: white;
+    }
+    .btn-danger {
+      background: #f44336;
+      color: white;
+    }
+    .licenses-list {
+      max-height: 500px;
+      overflow-y: auto;
+      margin-top: 20px;
+    }
+    .license-item {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border-left: 4px solid #ff8c00;
+    }
+    .license-item.inactive {
+      border-left-color: #999;
+      opacity: 0.6;
+    }
+    .license-item.expired {
+      border-left-color: #f44336;
+    }
+    .license-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .license-key {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ff8c00;
+      font-family: 'Courier New', monospace;
+    }
+    .license-status {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+    .license-status.active {
+      background: #4caf50;
+      color: white;
+    }
+    .license-status.inactive {
+      background: #999;
+      color: white;
+    }
+    .license-status.expired {
+      background: #f44336;
+      color: white;
+    }
+    .license-info {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 10px 0;
+      font-size: 0.9rem;
+    }
+    .license-info-item {
+      display: flex;
+      justify-content: space-between;
+    }
+    .license-info-label {
+      color: #666;
+      font-weight: 600;
+    }
+    .license-url {
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .license-url-text {
+      flex: 1;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      color: #1976d2;
+      word-break: break-all;
+    }
+    .license-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .license-actions button {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .hidden {
+      display: none;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .stat-box {
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    .alert {
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .alert-success {
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+    }
+    .alert-info {
+      background: #d1ecf1;
+      border: 1px solid #bee5eb;
+      color: #0c5460;
+    }
+    @media (max-width: 768px) {
+      .admin-grid {
+        grid-template-columns: 1fr;
+      }
+      .license-info {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <!-- Login Section -->
+    <div id="loginSection" class="admin-card" style="max-width: 500px; margin: 100px auto;">
+      <h2><span class="icon">🔐</span> Acceso Administrador Global</h2>
+      <form id="authForm" class="auth-form">
+        <div class="input-group">
+          <label>Contraseña Maestra</label>
+          <input type="password" id="masterPassword" placeholder="Ingrese contraseña maestra" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Acceder</button>
+      </form>
+      <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 8px; font-size: 0.9rem;">
+        <strong>⚠️ Solo para el dueño de VentaMaestra</strong><br>
+        Este panel permite generar licencias y gestionar todas las tiendas instaladas.
+      </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="hidden">
+      <div class="admin-header">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 768 768'%3E%3Cpath fill='%23ff8c00' d='M384 50L120 200v350l264 150 264-150V200L384 50zm0 50l214 130v290l-214 122-214-122V230L384 100z'/%3E%3Cpath fill='%23ff8c00' d='M270 280h60v30h-60zm90 0h60v30h-60zm90 0h60v30h-60zm-180 50h60v30h-60zm90 0h60v30h-60zm90 0h60v30h-60zm-180 50h60v30h-60zm90 0h60v30h-60zm90 0h60v30h-60z'/%3E%3Ctext x='460' y='300' fill='%23ff8c00' font-size='80' font-weight='bold'%3E2.0%3C/text%3E%3C/svg%3E" alt="VentaMaestra Logo" style="width: 100px; height: 100px; margin-bottom: 15px;">
+        <h1>🎯 Panel Administrador Global</h1>
+        <p class="subtitle">Control total de licencias y tiendas - VentaMaestra 2.0</p>
+        <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+          <a href="manual-dueño.html" class="btn btn-success" style="max-width: 250px; text-decoration: none;">📚 Ver Manual del Dueño</a>
+          <button class="btn btn-danger" onclick="logout()" style="max-width: 200px;">🚪 Cerrar Sesión</button>
+        </div>
+      </div>
+
+      <!-- Estadísticas -->
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-value" id="statTotalLicenses">0</div>
+          <div class="stat-label">Licencias Totales</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="statActiveLicenses">0</div>
+          <div class="stat-label">Activas</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="statExpiredLicenses">0</div>
+          <div class="stat-label">Expiradas</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="statPendingLicenses">0</div>
+          <div class="stat-label">Pendientes</div>
+        </div>
+      </div>
+
+      <div class="admin-grid">
+        <!-- Generar Nueva Licencia -->
+        <div class="admin-card">
+          <h2><span class="icon">🎫</span> Generar Nueva Licencia</h2>
+          <form id="generateLicenseForm">
+            <div class="input-group">
+              <label>Nombre de la Tienda *</label>
+              <input type="text" id="newStoreName" placeholder="Ej: Abarrotes La Esperanza" required>
+            </div>
+            
+            <div class="input-group">
+              <label>Dirección</label>
+              <input type="text" id="newStoreAddress" placeholder="Calle, número, colonia">
+            </div>
+            
+            <div class="input-group">
+              <label>Nombre del Propietario *</label>
+              <input type="text" id="newOwnerName" placeholder="Nombre completo" required>
+            </div>
+            
+            <div class="input-group">
+              <label>Teléfono</label>
+              <input type="tel" id="newOwnerPhone" placeholder="10 dígitos">
+            </div>
+            
+            <div class="input-group">
+              <label>Email</label>
+              <input type="email" id="newOwnerEmail" placeholder="correo@ejemplo.com">
+            </div>
+            
+            <div class="input-group">
+              <label>Tipo de Licencia *</label>
+              <select id="newLicenseType" required>
+                <option value="trial">Prueba (15 días)</option>
+                <option value="basic">Básica (1 año)</option>
+                <option value="standard">Estándar (1 año)</option>
+                <option value="premium">Premium (1 año)</option>
+              </select>
+            </div>
+            
+            <div class="input-group">
+              <label>Notas Internas</label>
+              <textarea id="newLicenseNotes" placeholder="Observaciones, condiciones especiales..." rows="3"></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-success">✨ Generar Licencia</button>
+          </form>
+        </div>
+
+        <!-- Resultado de Licencia Generada -->
+        <div class="admin-card hidden" id="licenseResultCard">
+          <h2><span class="icon">✅</span> Licencia Generada</h2>
+          <div class="alert alert-success">
+            <strong>¡Licencia creada exitosamente!</strong><br>
+            Entrega esta información al cliente.
+          </div>
+          
+          <div class="input-group">
+            <label>🔑 Código de Licencia</label>
+            <div style="display: flex; gap: 10px;">
+              <input type="text" id="generatedLicenseKey" readonly style="font-family: 'Courier New', monospace; font-size: 1.2rem; font-weight: bold; color: #667eea;">
+              <button class="btn btn-primary" onclick="copyLicenseKey()" style="width: auto; padding: 10px 20px;">📋 Copiar</button>
+            </div>
+          </div>
+          
+          <div class="license-url">
+            <div class="license-url-text" id="generatedStoreUrl"></div>
+            <button class="btn btn-primary" onclick="copyStoreUrl()" style="width: auto; padding: 10px 20px;">📋 Copiar URL</button>
+          </div>
+          
+          <div class="alert alert-info">
+            <strong>📝 Instrucciones para el cliente:</strong><br>
+            1. Abrir el navegador en su equipo<br>
+            2. Ir a: <code>http://localhost:4000/licencias.html</code><br>
+            3. Pegar el código de licencia<br>
+            4. Click en "Activar Licencia"<br>
+            5. La licencia quedará bloqueada a ese equipo<br><br>
+            <strong>🌐 URL de Tienda en Línea:</strong><br>
+            Compartir la URL de arriba con sus clientes para pedidos en línea.
+          </div>
+          
+          <button class="btn btn-warning" onclick="closeResult()">Cerrar</button>
+        </div>
+      </div>
+
+      <!-- Lista de Todas las Licencias -->
+      <div class="admin-card">
+        <h2><span class="icon">📋</span> Todas las Licencias Generadas</h2>
+        
+        <div class="input-group">
+          <label>🔍 Buscar</label>
+          <input type="text" id="searchLicenses" placeholder="Buscar por tienda, propietario, código...">
+        </div>
+        
+        <div class="licenses-list" id="licensesList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+node_modules/
+.gradle/
+build/
+*.keystore
+*.jks
+*.apk
+*.aab
+*.idsig
+ventamaestra-app/
+app/
+gradle/
+server/node_modules/
+.bubblewrap/
+twa.keystore
+android.keystore

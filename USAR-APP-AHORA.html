@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usar VentaMaestra AHORA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      color: white;
+    }
+    .card {
+      background: white;
+      color: #333;
+      padding: 30px;
+      border-radius: 15px;
+      margin: 20px 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.5em;
+    }
+    h2 {
+      color: #ff6600;
+      border-bottom: 3px solid #ff6600;
+      padding-bottom: 10px;
+    }
+    .step {
+      background: #fff3e6;
+      padding: 15px;
+      margin: 10px 0;
+      border-left: 5px solid #ff6600;
+      border-radius: 5px;
+    }
+    .code {
+      background: #2d2d2d;
+      color: #0f0;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      margin: 10px 0;
+      overflow-x: auto;
+    }
+    .button {
+      display: inline-block;
+      background: #ff6600;
+      color: white;
+      padding: 15px 30px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      margin: 10px 5px;
+      transition: background 0.3s;
+    }
+    .button:hover {
+      background: #ff8c00;
+    }
+    .warning {
+      background: #fff3cd;
+      border-left: 5px solid #ffc107;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 5px;
+      color: #856404;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚀 Usar VentaMaestra AHORA</h1>
+  
+  <div class="card">
+    <h2>📱 OPCIÓN 1: Abrir directamente en archivos (MÁS RÁPIDO)</h2>
+    <div class="step">
+      <strong>Paso 1:</strong> Abre este archivo con tu navegador:<br>
+      <div class="code">C:\Users\abrah\ventamaestra\index.html</div>
+    </div>
+    <div class="step">
+      <strong>Paso 2:</strong> ¡Listo! Ya puedes usar la app.
+    </div>
+    <a href="file:///C:/Users/abrah/ventamaestra/index.html" class="button">🚀 ABRIR APP AHORA</a>
+  </div>
+
+  <div class="card">
+    <h2>🌐 OPCIÓN 2: Servidor Local (Para celular)</h2>
+    <div class="step">
+      <strong>Paso 1:</strong> Abre PowerShell y ejecuta:<br>
+      <div class="code">cd C:\Users\abrah\ventamaestra
+python -m http.server 8080</div>
+    </div>
+    <div class="step">
+      <strong>Paso 2:</strong> En tu PC abre:<br>
+      <div class="code">http://localhost:8080</div>
+    </div>
+    <div class="step">
+      <strong>Paso 3 (Celular):</strong> Averigua tu IP con:<br>
+      <div class="code">ipconfig</div>
+      Busca "Dirección IPv4" (ej: 192.168.1.100)
+    </div>
+    <div class="step">
+      <strong>Paso 4:</strong> En tu celular abre Chrome y ve a:<br>
+      <div class="code">http://TU-IP:8080</div>
+      Ejemplo: http://192.168.1.100:8080
+    </div>
+    <div class="step">
+      <strong>Paso 5:</strong> En Chrome del celular: Menú → "Agregar a pantalla de inicio"
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📦 OPCIÓN 3: Generar APK (Requiere instalaciones)</h2>
+    <div class="warning">
+      ⚠️ <strong>ADVERTENCIA:</strong> Esto requiere descargar ~3GB y tomará 1-2 horas.
+    </div>
+    
+    <h3>Método A: Android Studio (Más estable)</h3>
+    <div class="step">
+      <strong>1.</strong> Descarga e instala Android Studio:<br>
+      <a href="https://developer.android.com/studio" target="_blank" class="button">Descargar Android Studio</a>
+    </div>
+    <div class="step">
+      <strong>2.</strong> Una vez instalado, ejecuta en PowerShell:<br>
+      <div class="code">cd C:\Users\abrah\ventamaestra\ventamaestra-app
+cordova build android --release</div>
+    </div>
+    <div class="step">
+      <strong>3.</strong> La APK estará en:<br>
+      <div class="code">ventamaestra-app\platforms\android\app\build\outputs\apk\release\</div>
+    </div>
+
+    <h3>Método B: Gradle Manual</h3>
+    <div class="step">
+      <strong>1.</strong> Descarga Gradle:<br>
+      <a href="https://gradle.org/releases/" target="_blank" class="button">Descargar Gradle</a>
+    </div>
+    <div class="step">
+      <strong>2.</strong> Extrae a C:\Gradle y agrega a PATH:<br>
+      <div class="code">C:\Gradle\bin</div>
+    </div>
+    <div class="step">
+      <strong>3.</strong> Ejecuta:<br>
+      <div class="code">cd C:\Users\abrah\ventamaestra\ventamaestra-app
+cordova build android --release</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🎯 Páginas Disponibles</h2>
+    <a href="file:///C:/Users/abrah/ventamaestra/index.html" class="button">🏠 Inicio</a>
+    <a href="file:///C:/Users/abrah/ventamaestra/tienda.html" class="button">💰 Punto de Venta</a>
+    <a href="file:///C:/Users/abrah/ventamaestra/productos.html" class="button">📦 Productos</a>
+    <a href="file:///C:/Users/abrah/ventamaestra/inventarios.html" class="button">📊 Inventarios</a>
+    <a href="file:///C:/Users/abrah/ventamaestra/pedidos.html" class="button">🚚 Pedidos</a>
+    <a href="file:///C:/Users/abrah/ventamaestra/compras.html" class="button">🛒 Compras</a>
+    <a href="file:///C:/Users/abrah/ventamaestra/admin.html" class="button">⚙️ Admin</a>
+  </div>
+
+  <div class="card">
+    <h2>💡 Recomendación</h2>
+    <p><strong>Si quieres usar la app YA:</strong> Usa la OPCIÓN 1 (abrir archivos directamente) o OPCIÓN 2 (servidor local)</p>
+    <p><strong>Si necesitas APK instalable:</strong> Usa OPCIÓN 3, pero ten paciencia con las descargas.</p>
+  </div>
+</body>
+</html>

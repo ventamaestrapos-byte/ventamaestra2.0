@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Licencias - VentaMaestra</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="naranja-theme.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .generator-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    h1 {
+      color: #ff6600;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .form-group {
+      margin: 20px 0;
+    }
+    label {
+      display: block;
+      color: #333;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #ff6600;
+    }
+    .button {
+      background: #ff6600;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      width: 100%;
+      margin: 10px 0;
+      transition: background 0.3s;
+    }
+    .button:hover {
+      background: #ff8c00;
+    }
+    .button.secondary {
+      background: #28a745;
+    }
+    .button.secondary:hover {
+      background: #218838;
+    }
+    .license-display {
+      background: #f8f9fa;
+      border: 3px dashed #ff6600;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      display: none;
+    }
+    .license-code {
+      background: #2d2d2d;
+      color: #0f0;
+      padding: 20px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 20px;
+      text-align: center;
+      word-break: break-all;
+      margin: 15px 0;
+    }
+    .info-box {
+      background: #e3f2fd;
+      border-left: 5px solid #2196f3;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 5px;
+    }
+    .success-box {
+      background: #d4edda;
+      border-left: 5px solid #28a745;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 5px;
+      color: #155724;
+    }
+    .licenses-list {
+      margin-top: 30px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .license-item {
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 10px 0;
+    }
+    .license-item strong {
+      color: #ff6600;
+    }
+  </style>
+</head>
+<body>
+  <!-- Panel de Login -->
+  <div id="loginPanel" class="generator-container" style="max-width: 500px;">
+    <h1>🔒 Acceso Restringido</h1>
+    <div class="alert" style="background: #f8d7da; border-left: 5px solid #dc3545; color: #721c24; padding: 15px; margin: 20px 0; border-radius: 8px;">
+      <strong>⚠️ Solo Administrador</strong><br>
+      Esta página está protegida. Ingresa tu contraseña.
+    </div>
+    <div class="form-group">
+      <label for="adminPassword">Contraseña de Administrador:</label>
+      <input type="password" id="adminPassword" placeholder="Ingresa tu contraseña" onkeypress="if(event.key==='Enter') checkPassword()">
+    </div>
+    <button class="button" onclick="checkPassword()">🔓 Ingresar</button>
+  </div>
+
+  <!-- Generador de Licencias (oculto hasta login) -->
+  <div id="generatorPanel" class="generator-container" style="display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+      <h1 style="margin: 0;">🔑 Generador de Licencias VentaMaestra</h1>
+      <button class="button danger" onclick="logout()" style="width: auto; padding: 10px 20px; margin: 0;">🚪 Cerrar Sesión</button>
+    </div>
+    
+    <div class="info-box">
+      <strong>ℹ️ Información:</strong>
+      <ul style="margin: 10px 0 0 20px;">
+        <li><strong>Licencia Trial:</strong> 15 días gratis (se genera automáticamente)</li>
+        <li><strong>Licencia Full:</strong> 1 año de uso completo</li>
+        <li>Cada licencia es única por dispositivo</li>
+      </ul>
+    </div>
+
+    <div class="form-group">
+      <label for="businessName">Nombre del Negocio:</label>
+      <input type="text" id="businessName" placeholder="Ej: Abarrotes San Juan">
+    </div>
+
+    <div class="form-group">
+      <label for="contactInfo">Contacto (Email o Teléfono):</label>
+      <input type="text" id="contactInfo" placeholder="Ej: contacto@negocio.com o 5512345678">
+    </div>
+
+    <div class="form-group">
+      <label for="licenseType">Tipo de Licencia:</label>
+      <select id="licenseType">
+        <option value="TRIAL">Trial (15 días gratis)</option>
+        <option value="FULL">Full (1 año - $499 MXN)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="duration">Duración (solo para Full):</label>
+      <select id="duration">
+        <option value="365">1 año</option>
+        <option value="730">2 años</option>
+        <option value="1095">3 años</option>
+        <option value="36500">Licencia Perpetua</option>
+      </select>
+    </div>
+
+    <button class="button" onclick="generateLicense()">🔑 Generar Licencia</button>
+
+    <div class="license-display" id="licenseDisplay">
+      <div class="success-box">
+        <strong>✅ Licencia Generada Exitosamente</strong>
+      </div>
+      
+      <h3 style="color: #ff6600;">Código de Licencia:</h3>
+      <div class="license-code" id="licenseCode"></div>
+      
+      <div id="licenseDetails"></div>
+      
+      <button class="button secondary" onclick="copyLicense()">📋 Copiar Licencia</button>
+      <button class="button" onclick="downloadLicense()">⬇️ Descargar como TXT</button>
+    </div>
+
+    <div class="licenses-list">
+      <h3 style="color: #ff6600; margin-top: 40px;">📋 Licencias Generadas</h3>
+      <div id="licensesList"></div>
+    </div>
+  </div>
+
+  <script>
+    let generatedLicenses = JSON.parse(localStorage.getItem('admin_licenses') || '[]');
+    
+    function generateLicenseCode(type, duration) {
+      const timestamp = Date.now().toString(36).toUpperCase();
+      const random = Math.random().toString(36).substring(2, 10).toUpperCase();
+      const prefix = type === 'FULL' ? 'PRO' : 'TRL';
+      const durationCode = duration.toString(36).toUpperCase();
+      return `VM2-${prefix}-${timestamp}-${random}-${durationCode}`;
+    }
+
+    function generateLicense() {
+      const businessName = document.getElementById('businessName').value.trim();
+      const contactInfo = document.getElementById('contactInfo').value.trim();
+      const licenseType = document.getElementById('licenseType').value;
+      const duration = parseInt(document.getElementById('duration').value);
+
+      if (!businessName) {
+        alert('Por favor ingresa el nombre del negocio');
+        return;
+      }
+
+      if (!contactInfo) {
+        alert('Por favor ingresa un contacto');
+        return;
+      }
+
+      const licenseCode = generateLicenseCode(licenseType, duration);
+      const now = new Date();
+      const expirationDate = new Date(now);
+      expirationDate.setDate(expirationDate.getDate() + duration);
+
+      const license = {
+        code: licenseCode,
+        businessName: businessName,
+        contactInfo: contactInfo,
+        type: licenseType,
+        duration: duration,
+        generatedDate: now.toISOString(),
+        expirationDate: expirationDate.toISOString(),
+        status: 'GENERATED'
+      };
+
+      generatedLicenses.push(license);
+      localStorage.setItem('admin_licenses', JSON.stringify(generatedLicenses));
+
+      displayLicense(license);
+      updateLicensesList();
+    }
+
+    function displayLicense(license) {
+      const display = document.getElementById('licenseDisplay');
+      const codeEl = document.getElementById('licenseCode');
+      const detailsEl = document.getElementById('licenseDetails');
+
+      codeEl.textContent = license.code;
+
+      const durationText = license.duration === 36500 ? 'Perpetua' : 
+                           license.duration === 1095 ? '3 años' :
+                           license.duration === 730 ? '2 años' : '1 año';
+
+      detailsEl.innerHTML = `
+        <div style="margin: 20px 0;">
+          <p><strong>Negocio:</strong> ${license.businessName}</p>
+          <p><strong>Contacto:</strong> ${license.contactInfo}</p>
+          <p><strong>Tipo:</strong> ${license.type === 'FULL' ? 'Licencia Full' : 'Trial'}</p>
+          <p><strong>Duración:</strong> ${durationText}</p>
+          <p><strong>Válida hasta:</strong> ${new Date(license.expirationDate).toLocaleDateString('es-MX')}</p>
+        </div>
+      `;
+
+      display.style.display = 'block';
+      display.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyLicense() {
+      const code = document.getElementById('licenseCode').textContent;
+      
+      // Método moderno
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(() => {
+          alert('✅ Código de licencia copiado al portapapeles');
+        }).catch(() => {
+          // Fallback si falla
+          copyLicenseFallback(code);
+        });
+      } else {
+        // Fallback para navegadores antiguos o sin HTTPS
+        copyLicenseFallback(code);
+      }
+    }
+
+    function copyLicenseFallback(code) {
+      const textarea = document.createElement('textarea');
+      textarea.value = code;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        alert('✅ Código de licencia copiado al portapapeles');
+      } catch (err) {
+        alert('❌ No se pudo copiar. Código: ' + code);
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function downloadLicense() {
+      const code = document.getElementById('licenseCode').textContent;
+      const details = document.getElementById('licenseDetails').textContent;
+      
+      const content = `VENTAMAESTRA 2.0 - LICENCIA
+========================================
+
+Código de Licencia:
+${code}
+
+Detalles:
+${details}
+
+========================================
+Instrucciones de Activación:
+1. Abre VentaMaestra en el dispositivo del cliente
+2. Ve a "Licencias" en el menú
+3. Ingresa este código en "Activar Licencia Full"
+4. Haz clic en "Activar"
+
+Soporte: soporte@ventamaestra.com
+========================================
+`;
+
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Licencia-${code}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function updateLicensesList() {
+      const listEl = document.getElementById('licensesList');
+      
+      if (generatedLicenses.length === 0) {
+        listEl.innerHTML = '<p style="color: #666; text-align: center;">No hay licencias generadas aún</p>';
+        return;
+      }
+
+      const sortedLicenses = generatedLicenses.sort((a, b) => 
+        new Date(b.generatedDate) - new Date(a.generatedDate)
+      );
+
+      listEl.innerHTML = sortedLicenses.map(license => `
+        <div class="license-item">
+          <p><strong>Negocio:</strong> ${license.businessName}</p>
+          <p><strong>Código:</strong> <code>${license.code}</code></p>
+          <p><strong>Tipo:</strong> ${license.type === 'FULL' ? '✅ Full' : '🆓 Trial'}</p>
+          <p><strong>Generada:</strong> ${new Date(license.generatedDate).toLocaleString('es-MX')}</p>
+          <p><strong>Vence:</strong> ${new Date(license.expirationDate).toLocaleDateString('es-MX')}</p>
+        </div>
+      `).join('');
+    }
+
+    // Cargar lista al iniciar
+    updateLicensesList();
+
+    // Sistema de autenticación
+    function checkPassword() {
+      const password = document.getElementById('adminPassword').value;
+      const correctPassword = 'admin123'; // CAMBIAR ESTA CONTRASEÑA
+      
+      if (password === correctPassword) {
+        document.getElementById('loginPanel').style.display = 'none';
+        document.getElementById('generatorPanel').style.display = 'block';
+        sessionStorage.setItem('admin_authenticated', 'true');
+      } else {
+        alert('❌ Contraseña incorrecta');
+        document.getElementById('adminPassword').value = '';
+        document.getElementById('adminPassword').focus();
+      }
+    }
+
+    function logout() {
+      sessionStorage.removeItem('admin_authenticated');
+      document.getElementById('loginPanel').style.display = 'block';
+      document.getElementById('generatorPanel').style.display = 'none';
+      document.getElementById('adminPassword').value = '';
+    }
+
+    // Verificar si ya está autenticado
+    window.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem('admin_authenticated') === 'true') {
+        document.getElementById('loginPanel').style.display = 'none';
+        document.getElementById('generatorPanel').style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

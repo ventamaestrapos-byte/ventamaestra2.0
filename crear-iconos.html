@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Generador de Iconos</title>
+</head>
+<body>
+  <h1>Generando iconos...</h1>
+  <canvas id="canvas" width="512" height="512"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Fondo naranja
+    ctx.fillStyle = '#ff6600';
+    ctx.fillRect(0, 0, 512, 512);
+    
+    // Hexágono
+    ctx.beginPath();
+    ctx.moveTo(256, 50);
+    ctx.lineTo(450, 150);
+    ctx.lineTo(450, 350);
+    ctx.lineTo(256, 450);
+    ctx.lineTo(62, 350);
+    ctx.lineTo(62, 150);
+    ctx.closePath();
+    ctx.fillStyle = '#ff8c00';
+    ctx.fill();
+    ctx.strokeStyle = '#ff6600';
+    ctx.lineWidth = 8;
+    ctx.stroke();
+    
+    // Rectángulo blanco (ticket)
+    ctx.fillStyle = 'white';
+    ctx.fillRect(180, 180, 152, 200);
+    
+    // Líneas del ticket
+    ctx.fillStyle = '#ff8c00';
+    ctx.fillRect(192, 200, 128, 12);
+    ctx.fillRect(192, 230, 128, 12);
+    ctx.fillRect(192, 260, 128, 12);
+    ctx.fillRect(192, 290, 128, 12);
+    
+    // Texto "2.0"
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 72px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('2.0', 256, 440);
+    
+    // Descargar iconos
+    setTimeout(() => {
+      // Icon 512x512
+      canvas.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'icon-512.png';
+        a.click();
+      });
+      
+      // Icon 192x192
+      setTimeout(() => {
+        const canvas192 = document.createElement('canvas');
+        canvas192.width = 192;
+        canvas192.height = 192;
+        const ctx192 = canvas192.getContext('2d');
+        ctx192.drawImage(canvas, 0, 0, 192, 192);
+        
+        canvas192.toBlob(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'icon-192.png';
+          a.click();
+          
+          document.body.innerHTML = '<h1 style="color: green;">✅ Iconos generados! Revisa tus descargas.</h1>';
+        });
+      }, 500);
+    }, 100);
+  </script>
+</body>
+</html>

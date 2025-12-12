@@ -1,0 +1,51 @@
+{
+  "packageId": "com.ventamaestra.app",
+  "host": "ventamaestra.app",
+  "name": "VentaMaestra 2.0",
+  "launcherName": "VentaMaestra",
+  "display": "standalone",
+  "themeColor": "#FF6600",
+  "themeColorDark": "#000000",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#FF8C00",
+  "enableNotifications": true,
+  "startUrl": "/",
+  "iconUrl": "https://ventamaestra.app/icon-512.png",
+  "maskableIconUrl": "https://ventamaestra.app/icon-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "C:\\Users\\abrah\\ventamaestra\\twa.keystore",
+    "alias": "twa"
+  },
+  "appVersionName": "1",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://ventamaestra.app/manifest.json",
+  "fallbackType": "customtabs",
+  "features": {
+    "playBilling": {
+      "enabled": true
+    }
+  },
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "http://localhost:8080/",
+  "minSdkVersion": 21,
+  "orientation": "any",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "protocolHandlers": [],
+  "fileHandlers": [],
+  "launchHandlerClientMode": "",
+  "displayOverride": [],
+  "appVersion": "1"
+}

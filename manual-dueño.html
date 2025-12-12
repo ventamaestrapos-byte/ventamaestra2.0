@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual del Dueño - VentaMaestra 2.0</title>
+  <style>
+    @media print {
+      .no-print { display: none; }
+    }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+      color: #333;
+    }
+    h1 {
+      color: #ff8c00;
+      border-bottom: 3px solid #ff8c00;
+      padding-bottom: 10px;
+    }
+    h2 {
+      color: #ff6600;
+      margin-top: 30px;
+      border-left: 4px solid #ff6600;
+      padding-left: 15px;
+    }
+    h3 {
+      color: #ff8c00;
+      margin-top: 20px;
+    }
+    .header {
+      text-align: center;
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      color: white;
+      padding: 40px 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+    .header h1 {
+      color: white;
+      border: none;
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    .alert {
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .alert-warning {
+      background: #fff3cd;
+      border-left: 4px solid #ff9800;
+    }
+    .alert-info {
+      background: #d1ecf1;
+      border-left: 4px solid #17a2b8;
+    }
+    .alert-success {
+      background: #d4edda;
+      border-left: 4px solid #28a745;
+    }
+    code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+    }
+    pre {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    .btn-container {
+      text-align: center;
+      margin: 30px 0;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 8px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      margin: 10px;
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: transform 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+    .emoji {
+      font-size: 1.2em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    table th {
+      background: #ff8c00;
+      color: white;
+    }
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+    }
+    .checklist li {
+      padding: 8px;
+      margin: 5px 0;
+      background: #f9f9f9;
+      border-left: 3px solid #ff8c00;
+      padding-left: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="btn-container no-print">
+    <a href="admin.html" class="btn">← Volver al Panel</a>
+    <button onclick="window.print()" class="btn">🖨️ Imprimir / Guardar PDF</button>
+    <a href="MANUAL_DUEÑO.md" download class="btn">📥 Descargar .MD</a>
+  </div>
+
+  <div class="header">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 768 768'%3E%3Cpath fill='white' d='M384 50L120 200v350l264 150 264-150V200L384 50zm0 50l214 130v290l-214 122-214-122V230L384 100z'/%3E%3Cpath fill='white' d='M270 280h60v30h-60zm90 0h60v30h-60zm90 0h60v30h-60zm-180 50h60v30h-60zm90 0h60v30h-60zm90 0h60v30h-60zm-180 50h60v30h-60zm90 0h60v30h-60zm90 0h60v30h-60z'/%3E%3Ctext x='460' y='300' fill='white' font-size='80' font-weight='bold'%3E2.0%3C/text%3E%3C/svg%3E" alt="VentaMaestra Logo" style="width: 120px; height: 120px; margin-bottom: 15px;">
+    <h1>👑 MANUAL DEL DUEÑO</h1>
+    <h2 style="color: white; border: none; margin: 10px 0;">VentaMaestra 2.0</h2>
+    <p style="margin: 0; font-size: 1.1rem;">Guía Completa de Administración Global</p>
+  </div>
+
+  <div class="alert alert-warning">
+    <strong>⚠️ CONFIDENCIAL:</strong> Este manual es exclusivo para el propietario de VentaMaestra. No compartir con clientes.
+  </div>
+
+  <h2>🚀 INICIO RÁPIDO</h2>
+  
+  <h3>Paso 1: Iniciar el Sistema</h3>
+  <p>Doble click en: <code>setup.bat</code></p>
+  <ul>
+    <li>Se abrirá el navegador automáticamente</li>
+    <li>Verás la página de inicio con las opciones</li>
+  </ul>
+
+  <h3>Paso 2: Acceder a TU Panel</h3>
+  <p>Click en: "Panel Administrador Global" o ir directamente a:</p>
+  <pre>http://localhost:4000/admin.html</pre>
+
+  <h3>Paso 3: Autenticarte</h3>
+  <div class="alert alert-success">
+    <strong>Contraseña Maestra:</strong> <code>VentaMaestra2024!Admin</code>
+  </div>
+  <p><strong>⚠️ IMPORTANTE:</strong> Esta contraseña es SOLO para ti. Nunca la compartas con clientes.</p>
+
+  <hr>
+
+  <h2>🎯 ¿QUÉ HACES CON ESTE PANEL?</h2>
+
+  <h3>1️⃣ GENERAR LICENCIAS PARA CLIENTES</h3>
+  <p>Cuando un cliente te compra el sistema:</p>
+  <ol>
+    <li><strong>Llena el formulario</strong> en el panel:
+      <ul>
+        <li>Nombre de su tienda: "Abarrotes La Esperanza"</li>
+        <li>Dirección: "Calle 5 de Mayo #123"</li>
+        <li>Nombre del propietario: "Juan Pérez"</li>
+        <li>Teléfono: 5512345678</li>
+        <li>Email: juan@ejemplo.com</li>
+        <li>Tipo de licencia: Prueba / Básica / Estándar / Premium</li>
+        <li>Notas: Cualquier observación interna</li>
+      </ul>
+    </li>
+    <li><strong>Click en "Generar Licencia"</strong></li>
+    <li><strong>El sistema crea automáticamente:</strong>
+      <pre>🔑 Código de Licencia: AB12-CD34-EF56-GH78
+🌐 URL Tienda en Línea: http://localhost:4000/tienda.html?store=STORE_1733594847123</pre>
+    </li>
+    <li><strong>Copiar y enviar al cliente:</strong>
+      <ul>
+        <li>Click en "📋 Copiar Info"</li>
+        <li>Se copia todo el texto formateado</li>
+        <li>Envíalo por WhatsApp, Email o imprímelo</li>
+      </ul>
+    </li>
+  </ol>
+
+  <hr>
+
+  <h2>📋 INFORMACIÓN QUE ENVÍAS AL CLIENTE</h2>
+  <div class="alert alert-info">
+    <p>Cuando copies la información de una licencia, obtendrás este formato:</p>
+    <pre style="background: white; color: #333; border: 1px solid #ddd;">VENTAMAESTRA 2.0 - INFORMACIÓN DE LICENCIA
+
+🏪 Tienda: Abarrotes La Esperanza
+👤 Propietario: Juan Pérez
+📞 Teléfono: 5512345678
+
+🔑 CÓDIGO DE LICENCIA:
+AB12-CD34-EF56-GH78
+
+📝 INSTRUCCIONES DE ACTIVACIÓN:
+1. Abrir navegador en el equipo donde se instalará
+2. Ir a: http://localhost:4000/licencias.html
+3. Pegar el código de licencia de arriba
+4. Click en "Activar Licencia"
+5. ¡Listo! El sistema quedará bloqueado a ese equipo
+
+🌐 URL TIENDA EN LÍNEA:
+http://localhost:4000/tienda.html?store=STORE_123456
+
+Comparta esta URL con sus clientes para pedidos en línea.
+
+⚠️ IMPORTANTE:
+- La licencia solo se puede activar UNA VEZ
+- Quedará bloqueada al equipo donde se active
+- No se puede cambiar de dispositivo sin autorización
+- Tipo: BÁSICA
+- Expira: 7 dic 2026</pre>
+  </div>
+
+  <hr>
+
+  <h2>🔍 GESTIONAR LICENCIAS EXISTENTES</h2>
+  <p>En tu panel verás TODAS las licencias generadas con:</p>
+
+  <h3>Estados:</h3>
+  <ul>
+    <li>🟢 <strong>Activa:</strong> Cliente activó y está usando el sistema</li>
+    <li>🟡 <strong>Pendiente:</strong> Generada pero el cliente aún no la activa</li>
+    <li>🔴 <strong>Expirada:</strong> La fecha de vencimiento ya pasó</li>
+  </ul>
+
+  <h3>Acciones Disponibles:</h3>
+  <table>
+    <tr>
+      <th>Acción</th>
+      <th>Descripción</th>
+      <th>Cuándo usar</th>
+    </tr>
+    <tr>
+      <td>👁️ Ver Detalles</td>
+      <td>Muestra toda la información de la licencia</td>
+      <td>Para revisar datos completos</td>
+    </tr>
+    <tr>
+      <td>📋 Copiar Info</td>
+      <td>Copia información formateada</td>
+      <td>Para enviar al cliente</td>
+    </tr>
+    <tr>
+      <td>🔓 Desactivar</td>
+      <td>Permite activar en otro dispositivo</td>
+      <td>Cliente cambió de computadora</td>
+    </tr>
+    <tr>
+      <td>🗑️ Eliminar</td>
+      <td>Elimina permanentemente</td>
+      <td>Cliente no pagó o error</td>
+    </tr>
+  </table>
+
+  <hr>
+
+  <h2>📊 TIPOS DE LICENCIA</h2>
+  <table>
+    <tr>
+      <th>Tipo</th>
+      <th>Duración</th>
+      <th>Precio Sugerido</th>
+      <th>Uso Recomendado</th>
+    </tr>
+    <tr>
+      <td>🆓 Prueba</td>
+      <td>15 días</td>
+      <td>Gratis</td>
+      <td>Demos y evaluación</td>
+    </tr>
+    <tr>
+      <td>💼 Básica</td>
+      <td>1 año</td>
+      <td>$1,500 MXN</td>
+      <td>Tiendas pequeñas</td>
+    </tr>
+    <tr>
+      <td>🏪 Estándar</td>
+      <td>1 año</td>
+      <td>$3,000 MXN</td>
+      <td>Tiendas medianas + Soporte</td>
+    </tr>
+    <tr>
+      <td>🌟 Premium</td>
+      <td>1 año</td>
+      <td>$5,000 MXN</td>
+      <td>Cadenas + Soporte prioritario</td>
+    </tr>
+  </table>
+
+  <hr>
+
+  <h2>🔐 SEGURIDAD DEL SISTEMA</h2>
+  <h3>Bloqueo por Dispositivo</h3>
+  <p>Cuando un cliente activa su licencia, el sistema:</p>
+  <ol>
+    <li>Lee la "huella digital" de su computadora</li>
+    <li>Guarda esa huella junto con la licencia</li>
+    <li>Cada vez que abre el sistema, verifica la huella</li>
+    <li>Si no coincide = <strong>NO PUEDE USAR EL SISTEMA</strong></li>
+  </ol>
+
+  <h3>¿Qué es la "huella digital"?</h3>
+  <p>Una combinación única de:</p>
+  <ul>
+    <li>Navegador</li>
+    <li>Sistema operativo</li>
+    <li>Pantalla</li>
+    <li>Zona horaria</li>
+    <li>Hardware</li>
+    <li>Idioma</li>
+  </ul>
+
+  <hr>
+
+  <h2>💡 CASOS DE USO COMUNES</h2>
+
+  <h3>Caso 1: Cliente Nuevo</h3>
+  <pre>Cliente: "Quiero comprar VentaMaestra"
+Tú:
+1. Accedes a admin.html
+2. Generas licencia con sus datos
+3. Seleccionas tipo (ej: Básica - 1 año)
+4. Copias y envías la información
+5. Cliente recibe y activa en su computadora
+6. ¡Listo! Cliente trabajando</pre>
+
+  <h3>Caso 2: Cliente Cambió de Computadora</h3>
+  <pre>Cliente: "Compré nueva PC, ¿cómo muevo la licencia?"
+Tú:
+1. Accedes a admin.html
+2. Buscas su licencia
+3. Click en "🔓 Desactivar"
+4. Le avisas: "Ya puedes activar en tu nueva PC"
+5. Cliente activa con el mismo código
+6. Licencia ahora bloqueada a la nueva PC</pre>
+
+  <h3>Caso 3: Cliente No Pagó</h3>
+  <pre>Cliente: Dejó de pagar o hay problemas
+Tú:
+1. Accedes a admin.html
+2. Buscas su licencia
+3. Click en "🗑️ Eliminar"
+4. Confirmas la eliminación
+5. Cliente inmediatamente pierde acceso</pre>
+
+  <hr>
+
+  <h2>🔄 FLUJO COMPLETO DE VENTA</h2>
+  <ol style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid #667eea;">
+    <li><strong>CLIENTE TE CONTACTA</strong> - "Quiero el sistema para mi tienda"</li>
+    <li><strong>DEFINES EL PRECIO</strong> - Según tipo: Prueba/Básica/Estándar/Premium</li>
+    <li><strong>CLIENTE PAGA</strong> - Transferencia, efectivo, etc.</li>
+    <li><strong>GENERAS LICENCIA</strong> - admin.html → Llenar formulario → Generar</li>
+    <li><strong>ENVÍAS INFORMACIÓN</strong> - Copiar Info → WhatsApp/Email</li>
+    <li><strong>CLIENTE INSTALA</strong> - Ejecuta setup.bat, va a licencias.html, pega código</li>
+    <li><strong>SISTEMA BLOQUEADO</strong> - Su computadora ahora es la única autorizada</li>
+    <li><strong>CLIENTE USA SISTEMA</strong> - Configura productos, hace ventas, recibe pedidos</li>
+    <li><strong>TÚ MONITOREAS</strong> - Desde admin.html ves estado de su licencia</li>
+    <li><strong>RENOVACIÓN</strong> - Cliente te contacta para renovar (1 año después)</li>
+  </ol>
+
+  <hr>
+
+  <h2>💾 RESPALDOS Y DATOS</h2>
+  <div class="alert alert-warning">
+    <h3>⚠️ MUY IMPORTANTE</h3>
+    <p>Los datos son locales (en TU computadora). Si formateas, <strong>pierdes las licencias</strong>.</p>
+    <p><strong>Haz respaldos periódicos.</strong></p>
+  </div>
+
+  <h3>¿Cómo respaldar?</h3>
+  <ol>
+    <li>Abrir DevTools (F12) en el navegador</li>
+    <li>Ir a Application → Local Storage → http://localhost:4000</li>
+    <li>Copiar valor de <code>ventamaestra_all_licenses</code></li>
+    <li>Guardar en archivo .txt con fecha</li>
+  </ol>
+
+  <h3>¿Cómo restaurar?</h3>
+  <ol>
+    <li>Abrir DevTools (F12)</li>
+    <li>Ir a Application → Local Storage</li>
+    <li>Pegar valor guardado en <code>ventamaestra_all_licenses</code></li>
+    <li>Refrescar página admin.html</li>
+  </ol>
+
+  <hr>
+
+  <h2>✅ CHECKLIST DIARIA</h2>
+  <p>Como dueño de VentaMaestra, cada día deberías:</p>
+  <ul class="checklist">
+    <li>☐ Revisar si hay nuevos clientes potenciales</li>
+    <li>☐ Verificar estado de licencias (expiradas próximamente)</li>
+    <li>☐ Responder consultas de clientes</li>
+    <li>☐ Hacer respaldo de licencias (semanal)</li>
+    <li>☐ Revisar si hay pagos pendientes</li>
+    <li>☐ Contactar clientes próximos a vencer</li>
+  </ul>
+
+  <hr>
+
+  <h2>📚 RECURSOS CLAVE</h2>
+  <table>
+    <tr>
+      <th>Recurso</th>
+      <th>URL / Ubicación</th>
+      <th>Propósito</th>
+    </tr>
+    <tr>
+      <td>Panel Admin</td>
+      <td><code>http://localhost:4000/admin.html</code></td>
+      <td>Tu panel de control</td>
+    </tr>
+    <tr>
+      <td>Página de Inicio</td>
+      <td><code>http://localhost:4000/inicio.html</code></td>
+      <td>Acceso rápido</td>
+    </tr>
+    <tr>
+      <td>Activación</td>
+      <td><code>http://localhost:4000/licencias.html</code></td>
+      <td>Para clientes</td>
+    </tr>
+    <tr>
+      <td>Archivo setup.bat</td>
+      <td>Raíz del proyecto</td>
+      <td>Iniciar servidor</td>
+    </tr>
+  </table>
+
+  <h3>Contraseñas a recordar:</h3>
+  <ul>
+    <li><strong>Panel admin:</strong> <code>VentaMaestra2024!Admin</code></li>
+    <li><strong>Para crear usuarios (clientes):</strong> <code>master2024</code></li>
+  </ul>
+
+  <hr>
+
+  <h2>🎯 EMPIEZA AHORA</h2>
+  <div class="alert alert-success">
+    <h3>Ya tienes todo listo para:</h3>
+    <ol>
+      <li>✅ Generar licencias</li>
+      <li>✅ Gestionar clientes</li>
+      <li>✅ Crear URLs de tienda</li>
+      <li>✅ Monitorear activaciones</li>
+      <li>✅ Desactivar/Eliminar según necesites</li>
+    </ol>
+  </div>
+
+  <h3>Pasos iniciales:</h3>
+  <ol style="font-size: 1.1rem; line-height: 2;">
+    <li>Ejecuta <code>setup.bat</code></li>
+    <li>Ve a <code>admin.html</code></li>
+    <li>Ingresa contraseña maestra</li>
+    <li>Crea tu primera licencia de prueba</li>
+    <li>Pruébala tú mismo en <code>licencias.html</code></li>
+    <li><strong>¡Listo para vender!</strong></li>
+  </ol>
+
+  <hr>
+
+  <div style="text-align: center; margin: 40px 0; padding: 30px; background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%); color: white; border-radius: 10px;">
+    <h2 style="color: white; margin: 0 0 10px 0;">¡Éxito con tu negocio de VentaMaestra 2.0! 🚀</h2>
+    <p style="margin: 0; font-size: 1.1rem;">Si tienes dudas sobre cómo funciona algo, revisa este manual o prueba las funciones con licencias de prueba primero.</p>
+  </div>
+
+  <div class="btn-container no-print">
+    <a href="admin.html" class="btn">← Volver al Panel</a>
+    <button onclick="window.print()" class="btn">🖨️ Imprimir / Guardar PDF</button>
+    <a href="MANUAL_DUEÑO.md" download class="btn">📥 Descargar .MD</a>
+  </div>
+
+  <footer style="text-align: center; margin-top: 50px; padding: 20px; color: #666; border-top: 2px solid #eee;">
+    <p><strong>VentaMaestra 2.0</strong> © 2025 - Sistema de Gestión Comercial Multi-Tienda</p>
+    <p style="font-size: 0.9rem;">Manual del Dueño - Versión 1.0 - Diciembre 2025</p>
+  </footer>
+</body>
+</html>

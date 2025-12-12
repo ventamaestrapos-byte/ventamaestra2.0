@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>VentaMaestra 2.0 - Gestión de Productos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <script src="licencia.js"></script>
+  <script src="license-check.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo">
+        <span class="logo-icon">📦</span>
+        <span class="logo-text">VentaMaestra <span class="logo-version">2.0</span> - Productos</span>
+      </div>
+      <div class="header-center">
+        <div class="branch-info">
+          <span class="branch-label">Módulo:</span>
+          <span class="branch-name">Gestión de Productos</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="cmd-btn" onclick="window.location.href='compras.html'">🛒 Compras</button>
+        <button class="cmd-btn" onclick="window.location.href='inventarios.html'">📊 Inventario</button>
+        <button class="cmd-btn" onclick="window.location.href='index.html'">Volver a TPV</button>
+      </div>
+    </header>
+
+    <main class="app-main" style="grid-template-columns: 1fr 1.5fr;">
+      <!-- Panel izquierdo: Lista de productos -->
+      <section class="left-panel">
+        <div class="products-panel">
+          <h2>Productos Registrados</h2>
+          <div class="search-bar" style="margin-bottom: 10px;">
+            <input type="text" id="productSearch" placeholder="Buscar producto...">
+          </div>
+          <table class="sale-table" id="productsTable">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Stock</th>
+                <th>Precio Venta</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- productos.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Panel derecho: Formulario -->
+      <section class="right-panel">
+        <div class="products-panel">
+          <h2 id="formTitle">Agregar Producto</h2>
+          <form id="productForm" class="product-form">
+            <div class="form-grid">
+              <div class="form-field">
+                <label>Nombre del Producto *</label>
+                <input type="text" id="productName" required>
+              </div>
+
+              <div class="form-field">
+                <label>Código de Barras</label>
+                <input type="text" id="barcode" placeholder="Opcional">
+              </div>
+
+              <div class="form-field">
+                <label>Familia / Categoría</label>
+                <input type="text" id="family" list="familyOptions" placeholder="Escribe o selecciona...">
+                <datalist id="familyOptions">
+                  <option value="Abarrotes">
+                  <option value="Bebidas">
+                  <option value="Limpieza">
+                  <option value="Farmacia">
+                  <option value="Lácteos">
+                  <option value="Carnes">
+                  <option value="Frutas y Verduras">
+                  <option value="Panadería">
+                  <option value="Otros">
+                </datalist>
+              </div>
+
+              <div class="form-field">
+              <div class="form-field">
+                <label>Precio de Venta * (por unidad base)</label>
+                <input type="number" id="salePrice" step="0.01" min="0" required placeholder="0.00">
+                <small style="color: #777;">Si es por kilo/granel: precio por kilo</small>
+              </div>ption value="kilo">Kilo (peso)</option>
+                  <option value="granel">Granel</option>
+                  <option value="litro">Litro</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label>Precio de Compra</label>
+                <input type="number" id="purchasePrice" step="0.01" min="0" placeholder="0.00">
+              </div>
+
+              <div class="form-field">
+                <label>Precio de Venta *</label>
+                <input type="number" id="salePrice" step="0.01" min="0" required placeholder="0.00">
+              </div>
+
+              <div class="form-field">
+                <label>Precio de Mayoreo</label>
+                <input type="number" id="wholesalePrice" step="0.01" min="0" placeholder="0.00">
+              </div>
+
+              <div class="form-field">
+                <label>Mayoreo a partir de (piezas)</label>
+                <input type="number" id="wholesaleQty" min="1" placeholder="Ej: 10">
+              </div>
+
+              <div class="form-field">
+                <label>Stock Inicial</label>
+                <input type="number" id="stock" min="-999" value="0" placeholder="0">
+                <small style="color: #777;">Puede ser negativo para venta sin inventario</small>
+              </div>
+
+              <div class="form-field">
+                <label>Caducidad</label>
+                <input type="date" id="expiryDate">
+              </div>
+
+              <div class="form-field">
+                <label>
+                  <input type="checkbox" id="allowNegative" checked>
+                  Permitir venta en negativo (sin stock)
+                </label>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="cmd-btn cmd-primary">Guardar Producto</button>
+              <button type="button" class="cmd-btn" id="cancelBtn">Cancelar</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="status-panel" id="productStatus">
+          Completa el formulario para agregar un producto.
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="productos.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instalar VentaMaestra - Solución Final</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    h1 {
+      color: #ff6600;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .option {
+      background: #f8f9fa;
+      border-left: 5px solid #ff6600;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+    .option h3 {
+      color: #ff6600;
+      margin-bottom: 15px;
+    }
+    .button {
+      display: inline-block;
+      background: #ff6600;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin: 5px;
+      transition: background 0.3s;
+    }
+    .button:hover {
+      background: #ff8c00;
+    }
+    .success {
+      background: #d4edda;
+      border-left: 5px solid #28a745;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 5px;
+      color: #155724;
+    }
+    .warning {
+      background: #fff3cd;
+      border-left: 5px solid #ffc107;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 5px;
+      color: #856404;
+    }
+    .code {
+      background: #2d2d2d;
+      color: #0f0;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      margin: 10px 0;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 Instalar VentaMaestra - Solución Final</h1>
+    
+    <div class="warning">
+      <strong>⚠️ Si la APK no se instala:</strong>
+      <p>Probablemente tu Android no acepta APKs auto-firmadas. Usa una de estas 3 opciones:</p>
+    </div>
+
+    <div class="option">
+      <h3>✅ OPCIÓN 1: Usa la PWA (Más Fácil)</h3>
+      <p>No necesitas instalar nada. Funciona igual que una app:</p>
+      <ol style="margin: 15px 0 15px 20px;">
+        <li>En tu celular, abre Chrome</li>
+        <li>Ve a: <strong>http://192.168.1.101:8080</strong></li>
+        <li>Toca el menú (⋮) → "Agregar a pantalla de inicio"</li>
+        <li>¡Listo! Ya tienes la app</li>
+      </ol>
+      <div class="success">
+        ✓ No requiere permisos especiales<br>
+        ✓ Se actualiza automáticamente<br>
+        ✓ Funciona offline con Service Worker
+      </div>
+    </div>
+
+    <div class="option">
+      <h3>📦 OPCIÓN 2: Instalar con ADB</h3>
+      <p>Si tienes el modo desarrollador activado en Android:</p>
+      <ol style="margin: 15px 0 15px 20px;">
+        <li>Activa "Depuración USB" en tu celular</li>
+        <li>Conecta el celular por USB</li>
+        <li>En PC, abre PowerShell y ejecuta:</li>
+      </ol>
+      <div class="code">cd C:\Users\abrah\.bubblewrap\android_sdk\platform-tools
+.\adb.exe install "C:\Users\abrah\ventamaestra\VentaMaestra-INSTALABLE.apk"</div>
+      <a href="#" onclick="copyADB()" class="button">📋 Copiar Comando</a>
+    </div>
+
+    <div class="option">
+      <h3>🌐 OPCIÓN 3: Usar en PC</h3>
+      <p>Prueba la aplicación directamente en tu navegador:</p>
+      <a href="http://localhost:8080/index.html" class="button" target="_blank">🚀 Abrir VentaMaestra</a>
+    </div>
+
+    <div class="option">
+      <h3>💡 OPCIÓN 4: Subir a Google Play (Más Profesional)</h3>
+      <p>Para distribución oficial:</p>
+      <ol style="margin: 15px 0 15px 20px;">
+        <li>Crea una cuenta de Google Play Developer ($25)</li>
+        <li>Sube VentaMaestra-INSTALABLE.apk</li>
+        <li>Los usuarios la instalarán desde Play Store</li>
+      </ol>
+      <div class="success">
+        ✓ Instalación sin advertencias<br>
+        ✓ Actualizaciones automáticas<br>
+        ✓ Distribución ilimitada
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; padding: 20px; background: #e3f2fd; border-radius: 10px;">
+      <h3 style="color: #1976d2; margin-bottom: 15px;">📊 Resumen de Opciones</h3>
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr style="background: #f5f5f5;">
+          <th style="padding: 10px; text-align: left;">Opción</th>
+          <th style="padding: 10px; text-align: left;">Dificultad</th>
+          <th style="padding: 10px; text-align: left;">Tiempo</th>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-top: 1px solid #ddd;">PWA (Web App)</td>
+          <td style="padding: 10px; border-top: 1px solid #ddd;">⭐ Muy Fácil</td>
+          <td style="padding: 10px; border-top: 1px solid #ddd;">1 minuto</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-top: 1px solid #ddd;">Instalar con ADB</td>
+          <td style="padding: 10px; border-top: 1px solid #ddd;">⭐⭐ Media</td>
+          <td style="padding: 10px; border-top: 1px solid #ddd;">5 minutos</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-top: 1px solid #ddd;">Usar en PC</td>
+          <td style="padding: 10px; border-top: 1px solid #ddd;">⭐ Muy Fácil</td>
+          <td style="padding: 10px; border-top: 1px solid #ddd;">Inmediato</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-top: 1px solid #ddd;">Google Play</td>
+          <td style="padding: 10px; border-top: 1px solid #ddd;">⭐⭐⭐ Difícil</td>
+          <td style="padding: 10px; border-top: 1px solid #ddd;">1-2 días</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    function copyADB() {
+      const text = `cd C:\\Users\\abrah\\.bubblewrap\\android_sdk\\platform-tools
+.\\adb.exe install "C:\\Users\\abrah\\ventamaestra\\VentaMaestra-INSTALABLE.apk"`;
+      
+      navigator.clipboard.writeText(text).then(() => {
+        alert('✅ Comando copiado al portapapeles');
+      }).catch(() => {
+        prompt('Copia este comando:', text);
+      });
+    }
+  </script>
+</body>
+</html>
