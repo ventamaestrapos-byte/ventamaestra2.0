@@ -115,20 +115,49 @@ function attachEvents() {
   cancelBtn.addEventListener('click', resetForm);
   productSearch.addEventListener('input', handleSearch);
   
+  // Cambiar requerimiento de precio según tipo de unidad
+  if (unitTypeInput) {
+    unitTypeInput.addEventListener('change', updatePriceRequirement);
+  }
+  
   // Focus inicial
   productNameInput.focus();
+}
+
+function updatePriceRequirement() {
+  const unitType = unitTypeInput.value;
+  const salePriceLabel = document.getElementById('salePriceLabel');
+  
+  if (unitType === 'kilo' || unitType === 'granel') {
+    salePriceInput.required = true;
+    if (salePriceLabel) {
+      salePriceLabel.innerHTML = 'Precio de Venta * (por ' + unitType + ')';
+    }
+  } else {
+    salePriceInput.required = false;
+    if (salePriceLabel) {
+      salePriceLabel.textContent = 'Precio de Venta';
+    }
+  }
 }
 
 function handleSubmit(e) {
   e.preventDefault();
   
-  // Validar campos obligatorios básicos (HTML5 lo hará automáticamente)
+  // Validación manual adicional para kilo/granel
+  const unitType = unitTypeInput ? unitTypeInput.value : 'pieza';
+  if ((unitType === 'kilo' || unitType === 'granel') && !salePriceInput.value) {
+    alert('El precio de venta es obligatorio para productos por kilo o granel.');
+    salePriceInput.focus();
+    return;
+  }
+  
   const product = {
     id: editingProductId || Date.now(),
     name: productNameInput.value.trim(),
     barcode: barcodeInput.value.trim(),
     family: familyInput.value.trim(),
-    unitType: unitTypeInput ? unitTypeInput.value : 'pieza',
+    unitType: unitType,
     purchasePrice: parseFloat(purchasePriceInput.value) || 0,
     salePrice: parseFloat(salePriceInput.value) || 0,
     wholesalePrice: parseFloat(wholesalePriceInput.value) || 0,
@@ -137,6 +166,8 @@ function handleSubmit(e) {
     expiryDate: expiryDateInput ? expiryDateInput.value : '',
     allowNegative: allowNegativeInput ? allowNegativeInput.checked : true
   };
+  
+  console.log('Guardando producto:', product);
   
   if (editingProductId) {
     // Editar
