@@ -115,35 +115,6 @@ function attachEvents() {
   cancelBtn.addEventListener('click', resetForm);
   productSearch.addEventListener('input', handleSearch);
   
-  // Navegación con Enter entre campos
-  const formInputs = [
-    productNameInput,
-    barcodeInput,
-    familyInput,
-    unitTypeInput,
-    purchasePriceInput,
-    salePriceInput,
-    wholesalePriceInput,
-    wholesaleQtyInput,
-    stockInput,
-    expiryDateInput
-  ];
-  
-  formInputs.forEach((input, index) => {
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        if (index < formInputs.length - 1) {
-          // Ir al siguiente campo
-          formInputs[index + 1].focus();
-        } else {
-          // Último campo, submit el formulario
-          productForm.requestSubmit();
-        }
-      }
-    });
-  });
-  
   // Focus inicial
   productNameInput.focus();
 }
@@ -151,38 +122,20 @@ function attachEvents() {
 function handleSubmit(e) {
   e.preventDefault();
   
-  // Validar campos obligatorios
-  if (!productNameInput.value.trim()) {
-    updateStatus('Error: El nombre del producto es obligatorio.');
-    productNameInput.focus();
-    return;
-  }
-  
-  if (!barcodeInput.value.trim()) {
-    updateStatus('Error: El código es obligatorio.');
-    barcodeInput.focus();
-    return;
-  }
-  
-  if (!salePriceInput.value || parseFloat(salePriceInput.value) <= 0) {
-    updateStatus('Error: El precio de venta es obligatorio y debe ser mayor a 0.');
-    salePriceInput.focus();
-    return;
-  }
-  
+  // Validar campos obligatorios básicos (HTML5 lo hará automáticamente)
   const product = {
     id: editingProductId || Date.now(),
     name: productNameInput.value.trim(),
     barcode: barcodeInput.value.trim(),
     family: familyInput.value.trim(),
-    unitType: unitTypeInput.value,
+    unitType: unitTypeInput ? unitTypeInput.value : 'pieza',
     purchasePrice: parseFloat(purchasePriceInput.value) || 0,
     salePrice: parseFloat(salePriceInput.value) || 0,
     wholesalePrice: parseFloat(wholesalePriceInput.value) || 0,
     wholesaleQty: parseInt(wholesaleQtyInput.value) || 0,
     stock: parseInt(stockInput.value) || 0,
-    expiryDate: expiryDateInput.value,
-    allowNegative: allowNegativeInput.checked
+    expiryDate: expiryDateInput ? expiryDateInput.value : '',
+    allowNegative: allowNegativeInput ? allowNegativeInput.checked : true
   };
   
   if (editingProductId) {

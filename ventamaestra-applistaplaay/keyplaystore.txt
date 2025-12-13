@@ -1,0 +1,108 @@
+🔐 INFORMACIÓN DE KEYS PARA GOOGLE PLAY STORE
+===============================================
+
+Para publicar en Google Play Store necesitas:
+
+1. CREAR UNA KEYSTORE (ALMACÉN DE CLAVES)
+------------------------------------------
+Comando para generar la keystore:
+
+keytool -genkey -v -keystore ventamaestra.keystore -alias ventamaestra -keyalg RSA -keysize 2048 -validity 10000
+
+Datos a proporcionar:
+- Contraseña del keystore: [TU_CONTRASEÑA_SEGURA]
+- Nombre y apellido: VentaMaestra
+- Unidad organizativa: Desarrollo
+- Organización: VentaMaestra
+- Ciudad: [Tu Ciudad]
+- Estado: [Tu Estado]
+- Código de país: MX
+
+⚠️ IMPORTANTE: Guarda bien la contraseña y el archivo .keystore
+   Si los pierdes, no podrás actualizar tu app en Play Store.
+
+
+2. FIRMAR LA APK
+----------------
+Después de generar la APK sin firmar, usa este comando:
+
+jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore ventamaestra.keystore app-release-unsigned.apk ventamaestra
+
+
+3. OPTIMIZAR LA APK (ZIPALIGN)
+-------------------------------
+zipalign -v 4 app-release-unsigned.apk ventamaestra-signed.apk
+
+
+4. INFORMACIÓN PARA GOOGLE PLAY CONSOLE
+----------------------------------------
+- Nombre de la app: VentaMaestra 2.0
+- Package ID: com.ventamaestra.app
+- Versión: 2.1.0
+- Versión Code: 210
+
+CATEGORÍA: Business / Productivity
+CLASIFICACIÓN DE CONTENIDO: Everyone (Todos)
+
+DESCRIPCIÓN CORTA:
+Sistema profesional de Punto de Venta para negocios con gestión completa de inventarios
+
+DESCRIPCIÓN LARGA:
+VentaMaestra 2.0 es un sistema completo de Punto de Venta diseñado para negocios de cualquier tamaño. 
+
+Características principales:
+✅ Punto de Venta (TPV) completo
+✅ Gestión de inventarios en tiempo real
+✅ Control de productos y categorías
+✅ Gestión de compras y proveedores
+✅ Pedidos y reservas
+✅ Promociones y descuentos
+✅ Sistema multi-sucursal
+✅ Tienda en línea integrada
+✅ Reportes y estadísticas
+✅ Kardex de movimientos
+✅ Gestión de usuarios y permisos
+✅ Protección con contraseña para administradores
+✅ Funciona offline
+
+Perfecto para:
+- Tiendas de abarrotes
+- Farmacias
+- Papelerías
+- Ferreterías
+- Tiendas de conveniencia
+- Cualquier negocio retail
+
+KEYWORDS/TAGS:
+pos, punto de venta, inventario, ventas, negocio, retail, tienda, comercio
+
+
+5. ALTERNATIVA FÁCIL: PWABuilder
+---------------------------------
+En lugar de crear keys manualmente, usa PWABuilder que genera la APK firmada automáticamente:
+
+1. Ve a: https://www.pwabuilder.com
+2. Ingresa: https://ventamaestrapos-byte.github.io/ventamaestra2.0/
+3. Genera el paquete para Android
+4. Descarga el APK ya firmado y listo para Play Store
+
+Esta es la opción MÁS FÁCIL y RECOMENDADA.
+
+
+6. CUENTA DE DESARROLLADOR
+---------------------------
+Necesitas:
+- Cuenta de Google Play Developer (costo único de $25 USD)
+- Tarjeta de crédito/débito
+- Información de tu negocio
+
+Registro: https://play.google.com/console/signup
+
+
+===============================================
+📝 Notas importantes:
+- Guarda este archivo en un lugar seguro
+- NO compartas tus contraseñas ni archivo .keystore
+- Haz backup de tu keystore en varios lugares seguros
+- Sin el keystore original, no podrás actualizar la app
+===============================================
