@@ -57,8 +57,6 @@ function handleSubmit(e) {
   };
   
   try {
-  
-  try {
     if (editingProductId) {
       // Editar
       const index = productDatabase.findIndex(p => p.id === editingProductId);
@@ -78,6 +76,8 @@ function handleSubmit(e) {
   } catch (error) {
     console.error('Error al guardar producto:', error);
     updateStatus('Error al guardar el producto. Revisa la consola.');
+  }
+}
   }
 }
 
