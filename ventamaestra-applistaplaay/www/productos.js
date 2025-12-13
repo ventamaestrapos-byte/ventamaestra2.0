@@ -1,84 +1,5 @@
 // Base de datos de productos en localStorage
-let productDatabase = JSON.parse(localStorage.getItem('ventamaestra_products')) || [
-  { 
-    id: 1, 
-    name: "Refresco 600ml", 
-    barcode: "7501234567890",
-    family: "Bebidas",
-    purchasePrice: 10,
-    salePrice: 18, 
-    wholesalePrice: 15,
-    wholesaleQty: 12,
-    stock: 25,
-    expiryDate: "2026-12-31",
-    allowNegative: true
-  },
-  { 
-    id: 2, 
-    name: "Papas fritas 45g",
-    barcode: "7501234567891",
-    family: "Abarrotes",
-    purchasePrice: 7,
-    salePrice: 14, 
-    wholesalePrice: 12,
-    wholesaleQty: 24,
-    stock: 8,
-    expiryDate: "2026-06-30",
-    allowNegative: true
-  },
-  { 
-    id: 3, 
-    name: "Pan de caja",
-    barcode: "7501234567892",
-    family: "Abarrotes",
-    purchasePrice: 25,
-    salePrice: 42, 
-    wholesalePrice: 38,
-    wholesaleQty: 6,
-    stock: 4,
-    expiryDate: "2025-12-20",
-    allowNegative: false
-  },
-  { 
-    id: 4, 
-    name: "Detergente 1L",
-    barcode: "7501234567893",
-    family: "Limpieza",
-    purchasePrice: 30,
-    salePrice: 55, 
-    wholesalePrice: 50,
-    wholesaleQty: 6,
-    stock: 2,
-    expiryDate: "",
-    allowNegative: true
-  },
-  { 
-    id: 5, 
-    name: "Medicamento X 10pz",
-    barcode: "7501234567894",
-    family: "Farmacia",
-    purchasePrice: 70,
-    salePrice: 120, 
-    wholesalePrice: 0,
-    wholesaleQty: 0,
-    stock: 0,
-    expiryDate: "2026-03-15",
-    allowNegative: true
-  },
-  { 
-    id: 6, 
-    name: "Aceite comestible 1L",
-    barcode: "7501234567895",
-    family: "Abarrotes",
-    purchasePrice: 30,
-    salePrice: 48, 
-    wholesalePrice: 45,
-    wholesaleQty: 12,
-    stock: 12,
-    expiryDate: "2026-08-30",
-    allowNegative: true
-  }
-];
+let productDatabase = JSON.parse(localStorage.getItem('ventamaestra_products')) || [];
 
 let editingProductId = null;
 
@@ -114,50 +35,18 @@ function attachEvents() {
   productForm.addEventListener('submit', handleSubmit);
   cancelBtn.addEventListener('click', resetForm);
   productSearch.addEventListener('input', handleSearch);
-  
-  // Cambiar requerimiento de precio según tipo de unidad
-  if (unitTypeInput) {
-    unitTypeInput.addEventListener('change', updatePriceRequirement);
-  }
-  
-  // Focus inicial
   productNameInput.focus();
-}
-
-function updatePriceRequirement() {
-  const unitType = unitTypeInput.value;
-  const salePriceLabel = document.getElementById('salePriceLabel');
-  
-  if (unitType === 'kilo' || unitType === 'granel') {
-    salePriceInput.required = true;
-    if (salePriceLabel) {
-      salePriceLabel.innerHTML = 'Precio de Venta * (por ' + unitType + ')';
-    }
-  } else {
-    salePriceInput.required = false;
-    if (salePriceLabel) {
-      salePriceLabel.textContent = 'Precio de Venta';
-    }
-  }
 }
 
 function handleSubmit(e) {
   e.preventDefault();
-  
-  // Validación manual adicional para kilo/granel
-  const unitType = unitTypeInput ? unitTypeInput.value : 'pieza';
-  if ((unitType === 'kilo' || unitType === 'granel') && !salePriceInput.value) {
-    alert('El precio de venta es obligatorio para productos por kilo o granel.');
-    salePriceInput.focus();
-    return;
-  }
   
   const product = {
     id: editingProductId || Date.now(),
     name: productNameInput.value.trim(),
     barcode: barcodeInput.value.trim(),
     family: familyInput.value.trim(),
-    unitType: unitType,
+    unitType: unitTypeInput ? unitTypeInput.value : 'pieza',
     purchasePrice: parseFloat(purchasePriceInput.value) || 0,
     salePrice: parseFloat(salePriceInput.value) || 0,
     wholesalePrice: parseFloat(wholesalePriceInput.value) || 0,
@@ -167,24 +56,29 @@ function handleSubmit(e) {
     allowNegative: allowNegativeInput ? allowNegativeInput.checked : true
   };
   
-  console.log('Guardando producto:', product);
+  try {
   
-  if (editingProductId) {
-    // Editar
-    const index = productDatabase.findIndex(p => p.id === editingProductId);
-    if (index !== -1) {
-      productDatabase[index] = product;
-      updateStatus(`Producto "${product.name}" actualizado correctamente.`);
+  try {
+    if (editingProductId) {
+      // Editar
+      const index = productDatabase.findIndex(p => p.id === editingProductId);
+      if (index !== -1) {
+        productDatabase[index] = product;
+        updateStatus(`Producto "${product.name}" actualizado correctamente.`);
+      }
+    } else {
+      // Agregar
+      productDatabase.push(product);
+      updateStatus(`Producto "${product.name}" agregado correctamente.`);
     }
-  } else {
-    // Agregar
-    productDatabase.push(product);
-    updateStatus(`Producto "${product.name}" agregado correctamente.`);
+    
+    saveToLocalStorage();
+    renderProductsTable();
+    resetForm();
+  } catch (error) {
+    console.error('Error al guardar producto:', error);
+    updateStatus('Error al guardar el producto. Revisa la consola.');
   }
-  
-  saveToLocalStorage();
-  renderProductsTable();
-  resetForm();
 }
 
 function saveToLocalStorage() {
