@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso de Administrador - VentaMaestra 2.0</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .auth-container {
+      background: white;
+      border-radius: 20px;
+      padding: 50px 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      max-width: 450px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .lock-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      color: #1e3c72;
+    }
+
+    h1 {
+      color: #1e3c72;
+      margin-bottom: 10px;
+      font-size: 2rem;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 40px;
+      font-size: 0.95rem;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s;
+      box-sizing: border-box;
+    }
+
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #1e3c72;
+      box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+    }
+
+    .btn-access {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-access:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(30, 60, 114, 0.3);
+    }
+
+    .btn-access:active {
+      transform: translateY(0);
+    }
+
+    .error-message {
+      background: #ffebee;
+      color: #c62828;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+      font-size: 0.9rem;
+    }
+
+    .back-link {
+      margin-top: 25px;
+      color: #666;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 0.9rem;
+    }
+
+    .back-link:hover {
+      color: #1e3c72;
+    }
+
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 15px;
+      margin-top: 30px;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 0.85rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="lock-icon">🔐</div>
+    <h1>Acceso de Administrador</h1>
+    <p class="subtitle">Esta sección está protegida. Solo el administrador de la app puede acceder.</p>
+
+    <div id="errorMessage" class="error-message"></div>
+
+    <form id="authForm">
+      <div class="form-group">
+        <label for="adminPassword">Contraseña de Administrador</label>
+        <input type="password" id="adminPassword" placeholder="Ingresa tu contraseña" required autofocus>
+      </div>
+
+      <button type="submit" class="btn-access">
+        🔓 Acceder
+      </button>
+    </form>
+
+    <a href="index.html" class="back-link">← Volver al TPV</a>
+    <div style="text-align: center; margin-top: 15px;">
+      <a href="config-password.html" style="color: #1e3c72; font-weight: 600; text-decoration: none;">⚙️ Cambiar Contraseña</a>
+    </div>
+
+    <div class="info-box">
+      <strong>💡 Nota:</strong> Esta página protege el acceso al generador de licencias, configuración de URLs y herramientas administrativas.
+    </div>
+  </div>
+
+  <script>
+    // Contraseña: se lee desde localStorage o usa la por defecto
+    const ADMIN_PASSWORD_KEY = 'ventamaestra_admin_password';
+    const DEFAULT_PASSWORD = 'admin2025';
+    const AUTH_TOKEN_KEY = 'ventamaestra_admin_auth';
+    const AUTH_EXPIRY_KEY = 'ventamaestra_admin_auth_expiry';
+    
+    // Obtener contraseña (de localStorage o por defecto)
+    function getAdminPassword() {
+      return localStorage.getItem(ADMIN_PASSWORD_KEY) || DEFAULT_PASSWORD;
+    }
+
+    const authForm = document.getElementById('authForm');
+    const adminPassword = document.getElementById('adminPassword');
+    const errorMessage = document.getElementById('errorMessage');
+
+    // Obtener página de destino desde URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectTo = urlParams.get('redirect') || 'licencias.html';
+
+    authForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const password = adminPassword.value;
+      const currentPassword = getAdminPassword();
+      
+      if (password === currentPassword) {
+        // Autenticación exitosa
+        const authToken = btoa(Date.now().toString());
+        const expiryTime = Date.now() + (24 * 60 * 60 * 1000); // 24 horas
+        
+        localStorage.setItem(AUTH_TOKEN_KEY, authToken);
+        localStorage.setItem(AUTH_EXPIRY_KEY, expiryTime.toString());
+        
+        // Redirigir a la página solicitada
+        window.location.href = redirectTo;
+      } else {
+        // Contraseña incorrecta
+        showError('❌ Contraseña incorrecta. Acceso denegado.');
+        adminPassword.value = '';
+        adminPassword.focus();
+        
+        // Vibrar si está disponible
+        if (navigator.vibrate) {
+          navigator.vibrate([100, 50, 100]);
+        }
+      }
+    });
+
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = 'block';
+      
+      setTimeout(() => {
+        errorMessage.style.display = 'none';
+      }, 4000);
+    }
+
+    // Si ya está autenticado, redirigir directamente
+    function checkExistingAuth() {
+      const authToken = localStorage.getItem(AUTH_TOKEN_KEY);
+      const expiryTime = parseInt(localStorage.getItem(AUTH_EXPIRY_KEY));
+      
+      if (authToken && expiryTime && Date.now() < expiryTime) {
+        window.location.href = redirectTo;
+      }
+    }
+
+    checkExistingAuth();
+  </script>
+</body>
+</html>

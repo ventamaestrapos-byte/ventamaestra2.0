@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kárdex de Productos - VentaMaestra 2.0</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <div class="header">
+      <h1>📋 Kárdex de Productos</h1>
+      <button class="cmd-btn" onclick="window.location.href='index.html'" style="padding: 8px 16px;">
+        ← Volver al TPV
+      </button>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="admin-content">
+      <!-- Selector de Producto -->
+      <div class="form-card">
+        <h3>Seleccionar Producto</h3>
+        <div style="display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: end;">
+          <div class="form-group" style="margin: 0;">
+            <label for="productSearch">Buscar Producto</label>
+            <input type="text" id="productSearch" placeholder="🔍 Buscar por nombre, código de barras..." 
+                   style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #e0e0e0;">
+            <datalist id="productsList">
+              <!-- Productos cargados desde JS -->
+            </datalist>
+          </div>
+          <button class="cmd-btn cmd-primary" id="btnShowKardex" style="padding: 10px 20px;">
+            Ver Kárdex
+          </button>
+        </div>
+
+        <div id="productList" style="margin-top: 15px; max-height: 200px; overflow-y: auto;">
+          <!-- Lista de productos filtrados -->
+        </div>
+      </div>
+
+      <!-- Información del Producto Seleccionado -->
+      <div class="form-card" id="productInfoCard" style="display: none;">
+        <h3>📦 Información del Producto</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+          <div class="summary-card">
+            <div class="summary-label">Producto</div>
+            <div class="summary-value" id="infoName">-</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-label">Stock Actual</div>
+            <div class="summary-value" id="infoStock">-</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-label">Precio Compra</div>
+            <div class="summary-value" id="infoCost">-</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-label">Precio Venta</div>
+            <div class="summary-value" id="infoPrice">-</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-label">Familia</div>
+            <div class="summary-value" id="infoFamily">-</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-label">Unidad</div>
+            <div class="summary-value" id="infoUnit">-</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resumen de Movimientos -->
+      <div class="form-card" id="summaryCard" style="display: none;">
+        <h3>📊 Resumen de Movimientos</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+          <div class="summary-card" style="background: #e8f5e9; border-left: 4px solid #4caf50;">
+            <div class="summary-label">Total Entradas</div>
+            <div class="summary-value" style="color: #2e7d32;" id="totalEntries">0</div>
+          </div>
+          <div class="summary-card" style="background: #ffebee; border-left: 4px solid #f44336;">
+            <div class="summary-label">Total Salidas</div>
+            <div class="summary-value" style="color: #c62828;" id="totalExits">0</div>
+          </div>
+          <div class="summary-card" style="background: #e3f2fd; border-left: 4px solid #2196f3;">
+            <div class="summary-label">Movimientos</div>
+            <div class="summary-value" style="color: #1565c0;" id="totalMovements">0</div>
+          </div>
+          <div class="summary-card" style="background: #fff3e0; border-left: 4px solid #ff9800;">
+            <div class="summary-label">Valor en Inventario</div>
+            <div class="summary-value" style="color: #e65100;" id="inventoryValue">$0.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtros de Movimientos -->
+      <div class="form-card" id="filtersCard" style="display: none;">
+        <h3>🔍 Filtrar Movimientos</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+          <div class="form-group" style="margin: 0;">
+            <label for="filterType">Tipo de Movimiento</label>
+            <select id="filterType">
+              <option value="all">Todos</option>
+              <option value="entry">Entradas</option>
+              <option value="exit">Salidas</option>
+            </select>
+          </div>
+          
+          <div class="form-group" style="margin: 0;">
+            <label for="filterReason">Razón</label>
+            <select id="filterReason">
+              <option value="all">Todas</option>
+              <option value="sale">Venta</option>
+              <option value="purchase">Compra</option>
+              <option value="adjustment">Ajuste Manual</option>
+              <option value="return">Devolución</option>
+              <option value="damage">Merma/Daño</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin: 0;">
+            <label for="filterDateFrom">Desde</label>
+            <input type="date" id="filterDateFrom">
+          </div>
+
+          <div class="form-group" style="margin: 0;">
+            <label for="filterDateTo">Hasta</label>
+            <input type="date" id="filterDateTo">
+          </div>
+        </div>
+
+        <div style="margin-top: 15px; display: flex; gap: 10px;">
+          <button class="cmd-btn cmd-primary" id="btnApplyFilter" style="padding: 8px 16px;">
+            Aplicar Filtros
+          </button>
+          <button class="cmd-btn" id="btnClearFilter" style="padding: 8px 16px;">
+            Limpiar Filtros
+          </button>
+          <button class="cmd-btn" id="btnExportKardex" style="padding: 8px 16px; margin-left: auto;">
+            📥 Exportar CSV
+          </button>
+        </div>
+      </div>
+
+      <!-- Tabla de Movimientos -->
+      <div class="form-card" id="movementsCard" style="display: none;">
+        <h3>📑 Historial de Movimientos</h3>
+        <div style="overflow-x: auto;">
+          <table class="inventory-table" id="movementsTable">
+            <thead>
+              <tr>
+                <th>Fecha/Hora</th>
+                <th>Tipo</th>
+                <th>Razón</th>
+                <th>Cantidad</th>
+                <th>Stock Anterior</th>
+                <th>Stock Nuevo</th>
+                <th>Costo Unit.</th>
+                <th>Valor</th>
+                <th>Usuario</th>
+                <th>Referencia</th>
+              </tr>
+            </thead>
+            <tbody id="movementsBody">
+              <!-- Movimientos cargados desde JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div id="emptyMessage" style="display: none; text-align: center; padding: 40px; color: #999;">
+          <p style="font-size: 1.2rem;">📭</p>
+          <p>No hay movimientos registrados para este producto.</p>
+        </div>
+      </div>
+
+      <!-- Registro Manual de Movimiento -->
+      <div class="form-card" id="manualMovementCard" style="display: none;">
+        <h3>➕ Registrar Movimiento Manual</h3>
+        <form id="movementForm" class="form-grid">
+          <div class="form-group">
+            <label for="movementType">Tipo de Movimiento *</label>
+            <select id="movementType" required>
+              <option value="">Selecciona tipo...</option>
+              <option value="entry">Entrada</option>
+              <option value="exit">Salida</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="movementReason">Razón *</label>
+            <select id="movementReason" required>
+              <option value="">Selecciona razón...</option>
+              <option value="adjustment">Ajuste de Inventario</option>
+              <option value="return">Devolución</option>
+              <option value="damage">Merma/Daño</option>
+              <option value="gift">Obsequio</option>
+              <option value="transfer">Transferencia</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="movementQuantity">Cantidad *</label>
+            <input type="number" id="movementQuantity" step="0.001" min="0.001" required>
+          </div>
+
+          <div class="form-group">
+            <label for="movementNotes">Notas/Observaciones</label>
+            <input type="text" id="movementNotes" placeholder="Ej: Ajuste por inventario físico">
+          </div>
+
+          <div class="form-actions" style="grid-column: 1 / -1;">
+            <button type="submit" class="cmd-btn cmd-primary" style="width: 100%;">
+              💾 Registrar Movimiento
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="kardex.js"></script>
+</body>
+</html>

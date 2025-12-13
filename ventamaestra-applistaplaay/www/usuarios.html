@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuarios y Permisos - VentaMaestra 2.0</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <div class="header">
+      <h1>👥 Usuarios y Permisos</h1>
+      <button class="cmd-btn" onclick="window.location.href='index.html'" style="padding: 8px 16px;">
+        ← Volver al TPV
+      </button>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="admin-content">
+      <!-- Formulario de Usuario -->
+      <div class="form-card">
+        <h3 id="formTitle">Nuevo Usuario/Cajero</h3>
+        <form id="userForm" class="form-grid">
+          <div class="form-group">
+            <label for="userName">Nombre del Usuario *</label>
+            <input type="text" id="userName" placeholder="Ej: Juan Pérez" required>
+          </div>
+
+          <div class="form-group">
+            <label for="userRole">Rol *</label>
+            <select id="userRole" required>
+              <option value="">Selecciona rol...</option>
+              <option value="owner">Dueño (Acceso Total)</option>
+              <option value="admin">Administrador</option>
+              <option value="cashier">Cajero</option>
+              <option value="stock">Encargado de Almacén</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="userUsername">Usuario/Login *</label>
+            <input type="text" id="userUsername" placeholder="usuario123" required>
+          </div>
+
+          <div class="form-group">
+            <label for="userPassword">Contraseña *</label>
+            <input type="password" id="userPassword" placeholder="••••••••" required>
+          </div>
+
+          <div class="form-group">
+            <label for="userPin">PIN (4 dígitos)</label>
+            <input type="text" id="userPin" placeholder="1234" maxlength="4" pattern="[0-9]{4}">
+            <small>PIN rápido para cambios de turno</small>
+          </div>
+
+          <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" id="userActive" checked>
+            <label for="userActive" style="margin: 0;">Usuario Activo</label>
+          </div>
+
+          <!-- Permisos del Cajero -->
+          <div id="permissionsSection" style="grid-column: 1 / -1; display: none;">
+            <h4 style="margin: 20px 0 10px 0; padding-top: 15px; border-top: 2px solid #e0e0e0;">
+              🔐 Permisos del Usuario
+            </h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-top: 15px;">
+              
+              <div class="permission-item">
+                <input type="checkbox" id="permModifyPrice">
+                <label for="permModifyPrice">Modificar Precio en Venta</label>
+              </div>
+
+              <div class="permission-item">
+                <input type="checkbox" id="permEditProduct">
+                <label for="permEditProduct">Editar Productos</label>
+              </div>
+
+              <div class="permission-item">
+                <input type="checkbox" id="permDeleteProduct">
+                <label for="permDeleteProduct">Dar de Baja Productos</label>
+              </div>
+
+              <div class="permission-item">
+                <input type="checkbox" id="permViewProfit">
+                <label for="permViewProfit">Ver Ganancia en Corte</label>
+              </div>
+
+              <div class="permission-item">
+                <input type="checkbox" id="permViewCashCut">
+                <label for="permViewCashCut">Ver Corte de Caja</label>
+              </div>
+
+              <div class="permission-item">
+                <input type="checkbox" id="permGiveCourtesy">
+                <label for="permGiveCourtesy">Dar Cortesías</label>
+              </div>
+
+              <div class="permission-item">
+                <input type="checkbox" id="permMakeDiscounts">
+                <label for="permMakeDiscounts">Hacer Descuentos</label>
+              </div>
+
+              <div class="permission-item">
+                <input type="checkbox" id="permViewCardex">
+                <label for="permViewCardex">Ver Kárdex de Productos</label>
+              </div>
+
+              <div class="permission-item">
+                <input type="checkbox" id="permAddUser">
+                <label for="permAddUser">Agregar Usuarios</label>
+              </div>
+
+              <div class="permission-item">
+                <input type="checkbox" id="permViewInventory">
+                <label for="permViewInventory">Checar Inventarios</label>
+              </div>
+
+              <div class="permission-item">
+                <input type="checkbox" id="permCancelSale">
+                <label for="permCancelSale">Cancelar Ventas</label>
+              </div>
+
+              <div class="permission-item">
+                <input type="checkbox" id="permWithdrawal">
+                <label for="permWithdrawal">Realizar Retiros</label>
+              </div>
+
+              <div class="permission-item">
+                <input type="checkbox" id="permPurchases">
+                <label for="permPurchases">Registrar Compras</label>
+              </div>
+
+              <div class="permission-item">
+                <input type="checkbox" id="permPromotions">
+                <label for="permPromotions">Gestionar Promociones</label>
+              </div>
+
+              <div class="permission-item">
+                <input type="checkbox" id="permReports">
+                <label for="permReports">Ver Reportes Avanzados</label>
+              </div>
+
+            </div>
+
+            <div style="margin-top: 15px; padding: 12px; background: #e3f2fd; border-radius: 6px;">
+              <button type="button" id="btnSelectAll" class="cmd-btn" style="padding: 6px 12px; font-size: 0.85rem; margin-right: 8px;">
+                ✅ Seleccionar Todos
+              </button>
+              <button type="button" id="btnDeselectAll" class="cmd-btn" style="padding: 6px 12px; font-size: 0.85rem;">
+                ❌ Quitar Todos
+              </button>
+            </div>
+          </div>
+
+          <div class="form-actions" style="grid-column: 1 / -1; margin-top: 20px;">
+            <button type="submit" class="cmd-btn cmd-primary" style="width: 100%;">
+              💾 Guardar Usuario
+            </button>
+            <button type="button" id="btnCancelEdit" class="cmd-btn" style="width: 100%; display: none; margin-top: 8px;">
+              ❌ Cancelar Edición
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Lista de Usuarios -->
+      <div class="form-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <h3>Usuarios Registrados</h3>
+          <div style="display: flex; gap: 8px;">
+            <button class="cmd-btn" id="filterActiveUsers" style="padding: 6px 12px; font-size: 0.85rem;">
+              ✅ Activos
+            </button>
+            <button class="cmd-btn" id="filterAllUsers" style="padding: 6px 12px; font-size: 0.85rem;">
+              📋 Todos
+            </button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+          <input type="text" id="searchUser" placeholder="🔍 Buscar usuario..." 
+                 style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #e0e0e0;">
+        </div>
+
+        <div id="usersList" style="max-height: 600px; overflow-y: auto;">
+          <!-- Usuarios cargados desde JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="usuarios.js"></script>
+</body>
+</html>

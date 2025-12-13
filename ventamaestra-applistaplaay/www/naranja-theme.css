@@ -1,0 +1,131 @@
+/* VentaMaestra 2.0 - Tema Naranja Personalizado */
+
+:root {
+  --primary-color: #ff8c00;
+  --secondary-color: #ff6600;
+  --primary-hover: #e67e00;
+  --primary-light: #ffa500;
+  --primary-dark: #cc7000;
+}
+
+/* Botones principales */
+.btn-primary,
+.cmd-primary,
+button[type="submit"] {
+  background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%) !important;
+  border-color: #ff8c00 !important;
+}
+
+.btn-primary:hover,
+.cmd-primary:hover {
+  background: linear-gradient(135deg, #e67e00 0%, #e65c00 100%) !important;
+  box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4) !important;
+}
+
+/* Headers y títulos */
+.app-header,
+.admin-header {
+  background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%) !important;
+}
+
+h1, h2.primary-title {
+  color: #ff8c00 !important;
+  border-color: #ff8c00 !important;
+}
+
+/* Licencias y tarjetas */
+.license-badge,
+.stat-box {
+  background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%) !important;
+}
+
+.license-item {
+  border-left-color: #ff8c00 !important;
+}
+
+.license-key {
+  color: #ff8c00 !important;
+}
+
+/* Links y accents */
+a.primary-link {
+  color: #ff8c00 !important;
+}
+
+a.primary-link:hover {
+  color: #ff6600 !important;
+}
+
+/* Checkboxes y radios */
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+  background-color: #ff8c00 !important;
+  border-color: #ff8c00 !important;
+}
+
+/* Progress bars */
+.progress-bar {
+  background-color: #ff8c00 !important;
+}
+
+/* Badges */
+.badge-primary {
+  background-color: #ff8c00 !important;
+}
+
+/* Focus states */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #ff8c00 !important;
+  box-shadow: 0 0 0 0.2rem rgba(255, 140, 0, 0.25) !important;
+}
+
+/* Tablas */
+table thead {
+  background-color: #ff8c00 !important;
+}
+
+/* Cards */
+.card-title {
+  color: #ff8c00 !important;
+}
+
+.card.admin {
+  background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%) !important;
+}
+
+/* Sidebar activo */
+.sidebar-item.active {
+  background-color: #ff8c00 !important;
+  border-left-color: #ff6600 !important;
+}
+
+/* Alertas */
+.alert-primary {
+  background-color: rgba(255, 140, 0, 0.1) !important;
+  border-color: #ff8c00 !important;
+  color: #cc7000 !important;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%) !important;
+}
+
+/* Status indicators */
+.status-active,
+.badge-success {
+  background-color: #ff8c00 !important;
+}
+
+/* Menu dropdown */
+.dropdown-item:hover {
+  background-color: rgba(255, 140, 0, 0.1) !important;
+}
+
+/* Paginación */
+.pagination .active {
+  background-color: #ff8c00 !important;
+  border-color: #ff8c00 !important;
+}

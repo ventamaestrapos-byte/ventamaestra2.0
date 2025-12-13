@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión - VentaMaestra 2.0</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ff7b1a 0%, #ffc93c 100%);
+    }
+    
+    .login-card {
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      max-width: 400px;
+      width: 100%;
+    }
+    
+    .login-logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .login-logo h1 {
+      font-size: 2rem;
+      color: var(--orange);
+      margin: 10px 0;
+    }
+    
+    .login-form-group {
+      margin-bottom: 20px;
+    }
+    
+    .login-form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .login-form-group input,
+    .login-form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+    
+    .login-form-group input:focus,
+    .login-form-group select:focus {
+      outline: none;
+      border-color: var(--orange);
+    }
+    
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--orange);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+    
+    .login-btn:hover {
+      background: var(--orange-dark);
+    }
+    
+    .login-divider {
+      text-align: center;
+      margin: 25px 0;
+      color: #999;
+      position: relative;
+    }
+    
+    .login-divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #e0e0e0;
+      z-index: 0;
+    }
+    
+    .login-divider span {
+      background: white;
+      padding: 0 15px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .pin-pad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .pin-btn {
+      padding: 20px;
+      font-size: 1.5rem;
+      background: #f5f5f5;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .pin-btn:hover {
+      background: var(--yellow);
+      border-color: var(--orange);
+    }
+    
+    .pin-btn:active {
+      transform: scale(0.95);
+    }
+    
+    .pin-display {
+      text-align: center;
+      font-size: 2rem;
+      letter-spacing: 10px;
+      padding: 15px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-logo">
+        <div style="font-size: 3rem;">🏪</div>
+        <h1>VentaMaestra 2.0</h1>
+        <p style="color: #777;">Iniciar Sesión</p>
+      </div>
+      
+      <form id="loginForm">
+        <div class="login-form-group">
+          <label for="loginUser">Usuario</label>
+          <select id="loginUser" required>
+            <option value="">Selecciona usuario...</option>
+          </select>
+        </div>
+        
+        <div class="login-form-group" id="passwordSection">
+          <label for="loginPassword">Contraseña</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required>
+        </div>
+        
+        <button type="submit" class="login-btn">Iniciar Sesión</button>
+      </form>
+      
+      <div class="login-divider">
+        <span>O ingresa con PIN</span>
+      </div>
+      
+      <div id="pinSection">
+        <div class="pin-display" id="pinDisplay">
+          ••••
+        </div>
+        <div class="pin-pad">
+          <button type="button" class="pin-btn" onclick="addPinDigit('1')">1</button>
+          <button type="button" class="pin-btn" onclick="addPinDigit('2')">2</button>
+          <button type="button" class="pin-btn" onclick="addPinDigit('3')">3</button>
+          <button type="button" class="pin-btn" onclick="addPinDigit('4')">4</button>
+          <button type="button" class="pin-btn" onclick="addPinDigit('5')">5</button>
+          <button type="button" class="pin-btn" onclick="addPinDigit('6')">6</button>
+          <button type="button" class="pin-btn" onclick="addPinDigit('7')">7</button>
+          <button type="button" class="pin-btn" onclick="addPinDigit('8')">8</button>
+          <button type="button" class="pin-btn" onclick="addPinDigit('9')">9</button>
+          <button type="button" class="pin-btn" onclick="clearPin()" style="background: #ffebee;">❌</button>
+          <button type="button" class="pin-btn" onclick="addPinDigit('0')">0</button>
+          <button type="button" class="pin-btn" onclick="loginWithPin()" style="background: #e8f5e9;">✓</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="login.js"></script>
+</body>
+</html>

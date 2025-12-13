@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generar APK - VentaMaestra 2.0</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ff6600">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="naranja-theme.css">
+  <!-- Protección de administrador -->
+  <script src="admin-guard.js"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      min-height: 100vh;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .apk-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .header img {
+      height: 80px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: #ff8c00;
+      font-size: 2.5em;
+      margin: 0;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 1.1em;
+      margin-top: 10px;
+    }
+
+    .step-card {
+      background: #f8f9fa;
+      border-left: 5px solid #ff8c00;
+      padding: 25px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    .step-number {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-right: 15px;
+    }
+
+    .step-title {
+      color: #ff8c00;
+      font-size: 1.4em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .step-content {
+      color: #333;
+      line-height: 1.8;
+      margin-left: 55px;
+    }
+
+    .code-box {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      margin: 15px 0;
+      overflow-x: auto;
+    }
+
+    .btn-download {
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin: 10px 0;
+      transition: all 0.3s;
+    }
+
+    .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255, 140, 0, 0.4);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #ff8c00;
+      border: 2px solid #ff8c00;
+    }
+
+    .btn-secondary:hover {
+      background: #ff8c00;
+      color: white;
+    }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .option-card {
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .option-card:hover {
+      border-color: #ff8c00;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255, 140, 0, 0.2);
+    }
+
+    .option-icon {
+      font-size: 3em;
+      margin-bottom: 15px;
+    }
+
+    .option-title {
+      color: #ff8c00;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .option-desc {
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    .info-box {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 5px;
+    }
+
+    .success-box {
+      background: #d4edda;
+      border-left: 4px solid #28a745;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 5px;
+    }
+
+    .requirements {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .requirements h3 {
+      color: #ff8c00;
+      margin-top: 0;
+    }
+
+    .requirements ul {
+      color: #333;
+      line-height: 2;
+    }
+
+    .download-links {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .download-link {
+      flex: 1;
+      min-width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="apk-container">
+    <div style="text-align: right; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+      <div></div>
+      <div style="display: flex; gap: 10px;">
+        <button class="cmd-btn" onclick="logoutAdmin()" style="padding: 8px 16px; background: #f44336; color: white; border: none; border-radius: 8px; cursor: pointer;">
+          🔒 Cerrar Sesión Admin
+        </button>
+        <button class="cmd-btn" onclick="window.location.href='index.html'" style="padding: 8px 16px; background: #2196F3; color: white; border: none; border-radius: 8px; cursor: pointer;">
+          ← Volver al TPV
+        </button>
+      </div>
+    </div>
+    <div class="header">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 140'%3E%3Cpath d='M60 10 L100 32.5 L100 77.5 L60 100 L20 77.5 L20 32.5 Z' fill='%23ff8c00' stroke='%23ff6600' stroke-width='3'/%3E%3Crect x='45' y='40' width='30' height='35' fill='white' rx='2'/%3E%3Crect x='48' y='45' width='24' height='3' fill='%23ff8c00'/%3E%3Crect x='48' y='51' width='24' height='3' fill='%23ff8c00'/%3E%3Crect x='48' y='57' width='24' height='3' fill='%23ff8c00'/%3E%3Crect x='48' y='63' width='24' height='3' fill='%23ff8c00'/%3E%3Ctext x='60' y='95' text-anchor='middle' font-size='18' font-weight='bold' fill='white'%3E2.0%3C/text%3E%3C/svg%3E" alt="Logo">
+      <h1>🚀 Generador de APK</h1>
+      <div class="subtitle">Convierte VentaMaestra 2.0 en una App Android</div>
+    </div>
+
+    <div class="success-box">
+      ✅ <strong>PWA Configurado:</strong> La aplicación ya está lista como Progressive Web App. Puede instalarse desde el navegador Chrome/Edge en Android.
+    </div>
+
+    <div class="info-box" style="background: #e8f5e9; border-left: 4px solid #4CAF50; margin: 20px 0;">
+      <strong>🎯 ¿Quieres publicar en Google Play Store?</strong><br>
+      Con la Opción 1 (PWA Builder) puedes generar un APK listo para publicar en Play Store.<br>
+      <a href="guia-play-store.html" style="color: #4CAF50; font-weight: bold; text-decoration: underline;">📱 Ver Guía Completa para Play Store →</a>
+    </div>
+
+    <h2 style="color: #ff8c00; margin-top: 40px;">📱 Opciones para Crear tu APK</h2>
+
+    <div class="option-grid">
+      <div class="option-card" onclick="showOption(1)">
+        <div class="option-icon">🌐</div>
+        <div class="option-title">PWA Builder</div>
+        <div class="option-desc">Servicio online gratuito de Microsoft</div>
+      </div>
+
+      <div class="option-card" onclick="showOption(2)">
+        <div class="option-icon">🔧</div>
+        <div class="option-title">Cordova</div>
+        <div class="option-desc">Framework profesional (requiere Node.js)</div>
+      </div>
+
+      <div class="option-card" onclick="showOption(3)">
+        <div class="option-icon">⚡</div>
+        <div class="option-title">ApkOnline</div>
+        <div class="option-desc">Convertidor web sin instalación</div>
+      </div>
+    </div>
+
+    <div id="option1" style="display:none;">
+      <div class="step-card">
+        <span class="step-number">1</span>
+        <div class="step-title">PWA Builder (Recomendado - Más Fácil)</div>
+        <div class="step-content">
+          <p><strong>La forma más simple de crear tu APK:</strong></p>
+          <ol>
+            <li>Visita <a href="https://www.pwabuilder.com/" target="_blank" style="color: #ff8c00;">pwabuilder.com</a></li>
+            <li>Sube tu aplicación (necesitas hostearla en un servidor HTTPS)</li>
+            <li>Haz clic en "Package for Android"</li>
+            <li>Descarga el archivo APK generado</li>
+          </ol>
+          <button class="btn-download" onclick="window.open('https://www.pwabuilder.com/', '_blank')">
+            🌐 Abrir PWA Builder
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="option2" style="display:none;">
+      <div class="step-card">
+        <span class="step-number">1</span>
+        <div class="step-title">Instalar Node.js</div>
+        <div class="step-content">
+          <p>Descarga e instala Node.js desde el sitio oficial:</p>
+          <button class="btn-download" onclick="window.open('https://nodejs.org/', '_blank')">
+            ⬇️ Descargar Node.js LTS
+          </button>
+          <p style="margin-top: 15px;"><em>Después de instalar, reinicia PowerShell</em></p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <span class="step-number">2</span>
+        <div class="step-title">Instalar Cordova</div>
+        <div class="step-content">
+          <p>Abre PowerShell y ejecuta:</p>
+          <div class="code-box">npm install -g cordova</div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <span class="step-number">3</span>
+        <div class="step-title">Crear Proyecto Cordova</div>
+        <div class="step-content">
+          <p>Ejecuta estos comandos en PowerShell:</p>
+          <div class="code-box">
+cd c:\Users\abrah\ventamaestra2.0
+cordova create ventamaestra-app com.ventamaestra.app "VentaMaestra 2.0"
+cd ventamaestra-app
+cordova platform add android
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <span class="step-number">4</span>
+        <div class="step-title">Copiar Archivos</div>
+        <div class="step-content">
+          <p>Copia todos tus archivos HTML, CSS y JS a la carpeta <code>www</code> del proyecto Cordova</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <span class="step-number">5</span>
+        <div class="step-title">Generar APK</div>
+        <div class="step-content">
+          <p>Construye la aplicación:</p>
+          <div class="code-box">cordova build android</div>
+          <p style="margin-top: 15px;">El APK estará en: <code>platforms/android/app/build/outputs/apk/debug/app-debug.apk</code></p>
+        </div>
+      </div>
+    </div>
+
+    <div id="option3" style="display:none;">
+      <div class="step-card">
+        <span class="step-number">1</span>
+        <div class="step-title">ApkOnline Maker</div>
+        <div class="step-content">
+          <p><strong>Crea APK desde el navegador:</strong></p>
+          <ol>
+            <li>Empaqueta todos tus archivos en un ZIP</li>
+            <li>Visita <a href="https://www.apkonline.net/es/apk-maker" target="_blank" style="color: #ff8c00;">apkonline.net/apk-maker</a></li>
+            <li>Sube el archivo ZIP</li>
+            <li>Configura nombre e icono</li>
+            <li>Genera y descarga tu APK</li>
+          </ol>
+          <button class="btn-download" onclick="createZip()">
+            📦 Crear ZIP de VentaMaestra
+          </button>
+          <button class="btn-download btn-secondary" onclick="window.open('https://www.apkonline.net/es/apk-maker', '_blank')" style="margin-top: 10px;">
+            🌐 Abrir APK Maker
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="requirements">
+      <h3>📋 Requisitos del Sistema</h3>
+      <ul>
+        <li><strong>Para Cordova:</strong> Node.js 14+, JDK 8+, Android SDK, Gradle</li>
+        <li><strong>Para PWA Builder:</strong> Solo navegador y servidor HTTPS</li>
+        <li><strong>Para ApkOnline:</strong> Solo navegador</li>
+      </ul>
+    </div>
+
+    <div class="info-box">
+      <strong>💡 Recomendación:</strong> Si es tu primera vez, usa <strong>PWA Builder</strong> o <strong>ApkOnline</strong>. Son más simples y no requieren instalaciones complicadas.
+    </div>
+
+    <div class="download-links">
+      <button class="btn-download download-link" onclick="installPWA()">
+        📱 Instalar como PWA (Android/Chrome)
+      </button>
+      <button class="btn-download btn-secondary download-link" onclick="window.location.href='inicio.html'">
+        🏠 Volver al Inicio
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function showOption(num) {
+      // Ocultar todas las opciones
+      document.getElementById('option1').style.display = 'none';
+      document.getElementById('option2').style.display = 'none';
+      document.getElementById('option3').style.display = 'none';
+      
+      // Mostrar la seleccionada
+      document.getElementById('option' + num).style.display = 'block';
+      
+      // Scroll suave
+      setTimeout(() => {
+        document.getElementById('option' + num).scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+
+    function installPWA() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(() => {
+            alert('✅ PWA configurado! Ahora puedes:\n\n1. En Chrome Android: Menú → "Instalar aplicación"\n2. En Edge: Menú → "Aplicaciones" → "Instalar sitio como aplicación"');
+          })
+          .catch(err => {
+            console.error('Error registrando Service Worker:', err);
+            alert('⚠️ Error al configurar PWA. Verifica que estés usando HTTPS o localhost.');
+          });
+      } else {
+        alert('❌ Tu navegador no soporta PWA. Usa Chrome o Edge.');
+      }
+    }
+
+    function createZip() {
+      alert('📦 Para crear el ZIP:\n\n1. Selecciona todos los archivos de la carpeta ventamaestra2.0\n2. Click derecho → "Enviar a" → "Carpeta comprimida (en ZIP)"\n3. Nombra el archivo: ventamaestra.zip\n4. Úsalo en ApkOnline Maker');
+    }
+
+    // Registrar Service Worker automáticamente
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(reg => console.log('Service Worker registrado:', reg))
+        .catch(err => console.log('Error en Service Worker:', err));
+    }
+  </script>
+</body>
+</html>

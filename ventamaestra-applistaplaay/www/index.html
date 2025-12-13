@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>VentaMaestra 2.0 - TPV Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="naranja-theme.css">
+  <script src="licencia.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 140'%3E%3Cpath d='M60 10 L100 32.5 L100 77.5 L60 100 L20 77.5 L20 32.5 Z' fill='%23ff8c00' stroke='%23ff6600' stroke-width='3'/%3E%3Crect x='45' y='40' width='30' height='35' fill='white' rx='2'/%3E%3Crect x='48' y='45' width='24' height='3' fill='%23ff8c00'/%3E%3Crect x='48' y='51' width='24' height='3' fill='%23ff8c00'/%3E%3Crect x='48' y='57' width='24' height='3' fill='%23ff8c00'/%3E%3Crect x='48' y='63' width='24' height='3' fill='%23ff8c00'/%3E%3Ctext x='60' y='95' text-anchor='middle' font-size='18' font-weight='bold' fill='white'%3E2.0%3C/text%3E%3C/svg%3E" alt="Logo" style="height: 40px; margin-right: 10px;">
+        <span class="logo-text">VentaMaestra <span class="logo-version">2.0</span></span>
+      </div>
+      <div class="header-center">
+        <div class="branch-info">
+          <span class="branch-label">Sucursal:</span>
+          <span class="branch-name" id="businessNameHeader">Abarrotes Centro</span>
+        </div>
+        <div class="license-badge">
+          Licencia: <span class="license-type" id="licenseCodeHeader">Activando...</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="delivery-icon" id="deliveryToggle" title="F11 - Pedidos a domicilio">
+          🚚 <span class="badge" id="deliveryCount">2</span>
+        </div>
+        <button class="cmd-btn" style="padding: 6px 12px; font-size: 0.85rem;" onclick="window.location.href='compras.html'">🛒 Compras</button>
+        <button class="cmd-btn" style="padding: 6px 12px; font-size: 0.85rem;" onclick="window.location.href='productos.html'">📦 Productos</button>
+        <button class="cmd-btn" style="padding: 6px 12px; font-size: 0.85rem;" onclick="window.location.href='inventarios.html'">📊 Inventario</button>
+        <button class="cmd-btn" style="padding: 6px 12px; font-size: 0.85rem;" onclick="window.location.href='kardex.html'">📋 Kárdex</button>
+        <button class="cmd-btn" style="padding: 6px 12px; font-size: 0.85rem;" onclick="window.location.href='promociones.html'">🎁 Promociones</button>
+        <button class="cmd-btn" style="padding: 6px 12px; font-size: 0.85rem;" onclick="window.location.href='pedidos.html'">📦 Pedidos Web</button>
+        <button class="cmd-btn" style="padding: 6px 12px; font-size: 0.85rem;" onclick="window.location.href='usuarios.html'">👥 Usuarios</button>
+        <div class="user-info">
+          <span class="user-name" id="currentUserName">Cajero: Usuario</span>
+          <button class="cmd-btn" onclick="logout()" style="padding: 4px 10px; font-size: 0.8rem; margin-left: 10px; background: #f44336; color: white;">🚪 Cerrar Sesión</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <!-- Columna izquierda: venta -->
+      <section class="left-panel">
+        <div class="search-bar">
+          <label for="searchInput">Buscar producto (F2)</label>
+          <input type="text" id="searchInput" placeholder="Descripción o código de barras">
+        </div>
+
+        <div class="quick-sale-form">
+          <div class="form-row">
+            <div class="form-field">
+              <label>Producto</label>
+              <input type="text" id="productNameInput" placeholder="Descripción" readonly>
+            </div>
+            <div class="form-field form-field-small">
+              <label>Cantidad</label>
+              <input type="number" id="quantityInput" placeholder="1" value="1" min="0.001" step="1">
+            </div>
+            <div class="form-field form-field-small">
+              <label>Precio</label>
+              <input type="number" id="priceInput" placeholder="0.00" step="0.01" readonly>
+            </div>
+            <div class="form-field-btn">
+              <label>&nbsp;</label>
+              <button id="addToSaleBtn" class="cmd-btn cmd-primary">Agregar (Enter)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="products-panel">
+          <h2>Resultados</h2>
+          <ul id="productList" class="product-list">
+            <!-- Productos desde JS -->
+          </ul>
+        </div>
+
+        <div class="sale-panel">
+          <h2>Venta actual</h2>
+          <table class="sale-table">
+            <thead>
+              <tr>
+                <th>Prod.</th>
+                <th>Cant.</th>
+                <th>Precio</th>
+                <th>Importe</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="saleItems">
+              <!-- Items desde JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Columna derecha: totales y comandos -->
+      <section class="right-panel">
+        <div class="total-panel">
+          <div class="total-label">TOTAL A PAGAR:</div>
+          <div class="total-amount" id="totalAmount">$0.00</div>
+        </div>
+
+        <div class="stock-alert" id="stockAlert">
+          Eje (Stock): <span id="stockInfo">—</span>
+        </div>
+
+        <div class="keypad-panel">
+          <div class="keypad">
+            <button class="key-btn">7</button>
+            <button class="key-btn">8</button>
+            <button class="key-btn">9</button>
+            <button class="key-btn">4</button>
+            <button class="key-btn">5</button>
+            <button class="key-btn">6</button>
+            <button class="key-btn">1</button>
+            <button class="key-btn">2</button>
+            <button class="key-btn">3</button>
+            <button class="key-btn">0</button>
+            <button class="key-btn">.</button>
+            <button class="key-btn">C</button>
+          </div>
+        </div>
+
+        <div class="commands-panel">
+          <button class="cmd-btn cmd-danger" id="btnCancelNote">
+            F1 - Cancelar Nota
+          </button>
+          <button class="cmd-btn" id="btnSearchSale">
+            F3 - Buscar Venta
+          </button>
+          <button class="cmd-btn" id="btnPauseSale">
+            F4 - Pausar/Recuperar Venta
+          </button>
+          <button class="cmd-btn" id="btnGoPos">
+            F5 - Ir a Punto de Venta
+          </button>
+          <button class="cmd-btn" id="btnStockAdjust">
+            F7 - Ajuste Express
+          </button>
+          <button class="cmd-btn" id="btnWithdrawal">
+            F8 - Retiro de Caja
+          </button>
+          <button class="cmd-btn cmd-primary" id="btnCharge">
+            F9 - Cobrar
+          </button>
+          <button class="cmd-btn" id="btnCut">
+            F10 - Corte de caja
+          </button>
+        </div>
+
+        <div class="status-panel" id="statusPanel">
+          Listo. Usa F2 para buscar, F9 para cobrar, F8 retiro, F10 para corte, F11 para pedidos.
+        </div>
+      </section>
+    </main>
+
+    <!-- Panel lateral de pedidos a domicilio -->
+    <aside class="delivery-panel" id="deliveryPanel">
+      <div class="delivery-header">
+        <h2>Pedidos a Domicilio (F11)</h2>
+        <button id="closeDelivery">&times;</button>
+      </div>
+      <ul id="deliveryList" class="delivery-list">
+        <!-- Pedidos desde JS -->
+      </ul>
+    </aside>
+
+    <!-- Modal genérico -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 id="modalTitle">Título</h2>
+          <button id="modalClose">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Contenido dinámico -->
+        </div>
+        <div class="modal-footer">
+          <button id="modalOk" class="cmd-btn cmd-primary">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Verificar activación al cargar
+    if (licenseManager.needsActivation()) {
+      window.location.href = 'activacion.html';
+    } else {
+      // Cargar información de licencia
+      const license = licenseManager.getLicense();
+      if (license) {
+        document.getElementById('businessNameHeader').textContent = license.businessName;
+        document.getElementById('licenseCodeHeader').textContent = license.code.substring(0, 20) + '...';
+      }
+    }
+  </script>
+</body>
+</html>

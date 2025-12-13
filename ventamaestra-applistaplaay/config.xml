@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.ventamaestra.app" version="2.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>VentaMaestra 2.0</name>
+    <description>
+        Sistema completo de Punto de Venta con gestión de inventarios, productos, compras, pedidos, y administración multi-sucursal.
+    </description>
+    <author email="contacto@ventamaestra.com" href="https://ventamaestra.com">
+        VentaMaestra Team
+    </author>
+    <content src="index.html" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <preference name="Orientation" value="default" />
+    <preference name="Fullscreen" value="false" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#ff6600" />
+    <preference name="AndroidXEnabled" value="true" />
+    
+    <icon src="www/icon-192.svg" />
+    
+    <platform name="android">
+        <icon density="ldpi" src="www/icon-192.svg" />
+        <icon density="mdpi" src="www/icon-192.svg" />
+        <icon density="hdpi" src="www/icon-192.svg" />
+        <icon density="xhdpi" src="www/icon-192.svg" />
+        <icon density="xxhdpi" src="www/icon-512.svg" />
+        <icon density="xxxhdpi" src="www/icon-512.svg" />
+        
+        <preference name="android-minSdkVersion" value="22" />
+        <preference name="android-targetSdkVersion" value="33" />
+    </platform>
+</widget>
+

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>VentaMaestra 2.0 - Inventarios</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo">
+        <span class="logo-icon">📊</span>
+        <span class="logo-text">VentaMaestra <span class="logo-version">2.0</span> - Inventarios</span>
+      </div>
+      <div class="header-center">
+        <div class="branch-info">
+          <span class="branch-label">Módulo:</span>
+          <span class="branch-name">Control de Inventarios</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="cmd-btn" onclick="window.location.href='compras.html'">🛒 Compras</button>
+        <button class="cmd-btn" onclick="window.location.href='index.html'">Volver a TPV</button>
+      </div>
+    </header>
+
+    <main class="app-main" style="grid-template-columns: 1fr;">
+      <section class="left-panel">
+        <!-- Resumen financiero -->
+        <div class="products-panel">
+          <h2>Resumen General de Inventario</h2>
+          <div class="summary-grid" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="summary-card">
+              <h3>Total Productos</h3>
+              <div class="value" id="totalProducts">0</div>
+              <div class="detail">Registrados en sistema</div>
+            </div>
+            <div class="summary-card">
+              <h3>Inversión Total</h3>
+              <div class="value" id="totalInvestment">$0.00</div>
+              <div class="detail">Costo × Stock</div>
+            </div>
+            <div class="summary-card">
+              <h3>Valor de Venta</h3>
+              <div class="value" id="totalSaleValue">$0.00</div>
+              <div class="detail">Si se vende todo</div>
+            </div>
+            <div class="summary-card">
+              <h3>Ganancia Potencial</h3>
+              <div class="value" style="color: #2e7d32;" id="totalProfit">$0.00</div>
+              <div class="detail" id="profitMargin">0% margen</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="products-panel" style="padding: 10px;">
+          <div style="display: grid; grid-template-columns: 1fr 200px 150px; gap: 10px; align-items: end;">
+            <div>
+              <label style="display: block; font-size: 0.85rem; color: #777; margin-bottom: 4px;">Buscar producto</label>
+              <input type="text" id="searchInventory" placeholder="Nombre, familia o código..." style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #e0e0e0;">
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.85rem; color: #777; margin-bottom: 4px;">Filtrar por</label>
+              <select id="filterStock" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #e0e0e0;">
+                <option value="all">Todos</option>
+                <option value="low">Stock bajo (< 5)</option>
+                <option value="zero">Sin stock (0)</option>
+                <option value="negative">Stock negativo</option>
+              </select>
+            </div>
+            <button class="cmd-btn cmd-primary" onclick="window.print()" style="padding: 8px;">🖨️ Imprimir</button>
+          </div>
+        </div>
+
+        <!-- Tabla de inventario -->
+        <div class="sale-panel">
+          <h2>Detalle de Inventario</h2>
+          <div style="overflow-x: auto;">
+            <table class="sale-table inventory-table" id="inventoryTable">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Producto</th>
+                  <th>Familia</th>
+                  <th>Unidad</th>
+                  <th>Stock</th>
+                  <th>Costo Unit.</th>
+                  <th>Precio Venta</th>
+                  <th>Inversión</th>
+                  <th>Valor Venta</th>
+                  <th>Ganancia</th>
+                  <th>Margen %</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- inventarios.js -->
+              </tbody>
+              <tfoot id="inventoryFooter">
+                <!-- Totales -->
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+        <div class="status-panel" id="inventoryStatus">
+          Cargando datos de inventario...
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="inventarios.js"></script>
+</body>
+</html>

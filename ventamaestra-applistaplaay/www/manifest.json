@@ -1,0 +1,36 @@
+{
+  "name": "VentaMaestra 2.0",
+  "short_name": "VentaMaestra",
+  "version": "2.1.0",
+  "description": "Sistema completo de Punto de Venta con gestión de inventarios, productos, compras, pedidos, promociones y administración multi-sucursal. Incluye protección de administrador y generación de licencias.",
+  "start_url": "https://ventamaestrapos-byte.github.io/ventamaestra2.0/inicio.html",
+  "display": "standalone",
+  "background_color": "#ff8c00",
+  "theme_color": "#ff6600",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "scope": "https://ventamaestrapos-byte.github.io/ventamaestra2.0/",
+  "categories": ["business", "productivity", "finance"],
+  "lang": "es-MX",
+  "dir": "ltr",
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "sizes": "1280x720",
+      "type": "image/png"
+    }
+  ]
+}

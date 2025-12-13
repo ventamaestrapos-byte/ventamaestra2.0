@@ -1,0 +1,27 @@
+{
+  "name": "com.ventamaestra.app",
+  "displayName": "VentaMaestra 2.0",
+  "version": "2.1.0",
+  "description": "Sistema completo de Punto de Venta con gestión de inventarios, productos, compras, pedidos, y administración multi-sucursal con protección de administrador.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "pos",
+    "punto-de-venta",
+    "inventarios",
+    "ventas"
+  ],
+  "author": "VentaMaestra Team",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "cordova-android": "^14.0.1"
+  },
+  "cordova": {
+    "platforms": [
+      "android"
+    ]
+  }
+}

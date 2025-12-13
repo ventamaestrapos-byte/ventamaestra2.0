@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instalar APK Ahora - VentaMaestra 2.0</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="naranja-theme.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      min-height: 100vh;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .header img {
+      height: 80px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: #ff8c00;
+      font-size: 2.5em;
+      margin: 0;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    .quick-method {
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .quick-method h2 {
+      margin: 0 0 20px 0;
+      font-size: 2em;
+    }
+
+    .quick-method .time {
+      font-size: 3em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .method-card {
+      background: #f8f9fa;
+      border-left: 5px solid #ff8c00;
+      padding: 30px;
+      margin-bottom: 25px;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .method-number {
+      position: absolute;
+      top: -15px;
+      left: 20px;
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.5em;
+      box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
+    }
+
+    .method-title {
+      color: #ff8c00;
+      font-size: 1.8em;
+      font-weight: bold;
+      margin: 15px 0;
+      padding-left: 60px;
+    }
+
+    .method-time {
+      display: inline-block;
+      background: #4CAF50;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    .method-content {
+      padding-top: 10px;
+    }
+
+    .step {
+      background: white;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 8px;
+      border-left: 3px solid #2196F3;
+    }
+
+    .step-number {
+      display: inline-block;
+      background: #2196F3;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 30px;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .btn-big {
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      color: white;
+      padding: 20px 40px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.3em;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin: 15px 0;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+
+    .btn-big:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(255, 140, 0, 0.4);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    }
+
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196F3;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+
+    .warning-box {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+
+    .success-box {
+      background: #d4edda;
+      border-left: 4px solid #28a745;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .pros, .cons {
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .pros {
+      background: #d4edda;
+      border-left: 4px solid #28a745;
+    }
+
+    .cons {
+      background: #f8d7da;
+      border-left: 4px solid #dc3545;
+    }
+
+    .pros h4, .cons h4 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .comparison-table th {
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6600 100%);
+      color: white;
+      padding: 15px;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    .comparison-table td {
+      padding: 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .comparison-table tr:hover {
+      background: #f5f5f5;
+    }
+
+    .feature-yes {
+      color: #4CAF50;
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+
+    .feature-no {
+      color: #dc3545;
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+
+    .feature-partial {
+      color: #ffc107;
+      font-weight: bold;
+      font-size: 1.3em;
+    }
+
+    @media (max-width: 768px) {
+      .pros-cons {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 140'%3E%3Cpath d='M60 10 L100 32.5 L100 77.5 L60 100 L20 77.5 L20 32.5 Z' fill='%23ff8c00' stroke='%23ff6600' stroke-width='3'/%3E%3Crect x='45' y='40' width='30' height='35' fill='white' rx='2'/%3E%3Crect x='48' y='45' width='24' height='3' fill='%23ff8c00'/%3E%3Crect x='48' y='51' width='24' height='3' fill='%23ff8c00'/%3E%3Crect x='48' y='57' width='24' height='3' fill='%23ff8c00'/%3E%3Crect x='48' y='63' width='24' height='3' fill='%23ff8c00'/%3E%3Ctext x='60' y='95' text-anchor='middle' font-size='18' font-weight='bold' fill='white'%3E2.0%3C/text%3E%3C/svg%3E" alt="Logo">
+      <h1>📱 Usar APK Ahora Mismo</h1>
+      <div class="subtitle">3 métodos rápidos sin esperar Play Store</div>
+    </div>
+
+    <div class="quick-method">
+      <h2>⚡ Método Más Rápido</h2>
+      <div class="time">2 MINUTOS</div>
+      <p style="font-size: 1.2em; margin: 0;">Instalar como PWA desde Chrome/Edge Android</p>
+    </div>
+
+    <h2 style="color: #333; margin: 40px 0 20px 0;">🎯 Comparación de Métodos</h2>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Característica</th>
+          <th>PWA</th>
+          <th>ApkOnline</th>
+          <th>Cordova Local</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tiempo de setup</strong></td>
+          <td>2 minutos</td>
+          <td>5 minutos</td>
+          <td>30+ minutos</td>
+        </tr>
+        <tr>
+          <td><strong>Requiere instalaciones</strong></td>
+          <td class="feature-no">✗</td>
+          <td class="feature-no">✗</td>
+          <td class="feature-yes">✓ (Node.js, etc)</td>
+        </tr>
+        <tr>
+          <td><strong>Funciona offline</strong></td>
+          <td class="feature-yes">✓</td>
+          <td class="feature-yes">✓</td>
+          <td class="feature-yes">✓</td>
+        </tr>
+        <tr>
+          <td><strong>Actualizaciones automáticas</strong></td>
+          <td class="feature-yes">✓</td>
+          <td class="feature-no">✗</td>
+          <td class="feature-no">✗</td>
+        </tr>
+        <tr>
+          <td><strong>Icono en inicio</strong></td>
+          <td class="feature-yes">✓</td>
+          <td class="feature-yes">✓</td>
+          <td class="feature-yes">✓</td>
+        </tr>
+        <tr>
+          <td><strong>Costo</strong></td>
+          <td>$0</td>
+          <td>$0</td>
+          <td>$0</td>
+        </tr>
+        <tr>
+          <td><strong>Dificultad</strong></td>
+          <td>Muy fácil</td>
+          <td>Fácil</td>
+          <td>Difícil</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- MÉTODO 1: PWA -->
+    <div class="method-card">
+      <div class="method-number">1</div>
+      <div class="method-title">
+        PWA - Instalar como App Web
+        <span class="method-time">⚡ 2 min</span>
+      </div>
+      <div class="method-content">
+        <div class="success-box">
+          <strong>✅ Recomendado:</strong> La forma más rápida y fácil. Sin descargas, sin configuraciones.
+        </div>
+
+        <div class="step">
+          <span class="step-number">1</span>
+          <strong>Abre Chrome o Edge en tu Android</strong>
+          <p style="margin: 10px 0 0 40px;">Necesitas un navegador que soporte PWA (Chrome, Edge, Samsung Internet)</p>
+        </div>
+
+        <div class="step">
+          <span class="step-number">2</span>
+          <strong>Ve a la URL de tu servidor</strong>
+          <div style="background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 8px; margin: 10px 0 0 40px; font-family: monospace;">
+            http://TU-IP-LOCAL:4000/inicio.html
+          </div>
+          <p style="margin: 10px 0 0 40px;">
+            <strong>¿Cómo saber tu IP?</strong><br>
+            En Windows (donde corre el servidor): <code>ipconfig</code><br>
+            Busca "IPv4 Address": algo como <code>192.168.1.100</code>
+          </p>
+        </div>
+
+        <div class="step">
+          <span class="step-number">3</span>
+          <strong>Instalar la App</strong>
+          <p style="margin: 10px 0 0 40px;">
+            • En Chrome: Toca el menú (⋮) → <strong>"Instalar aplicación"</strong> o <strong>"Agregar a pantalla de inicio"</strong><br>
+            • En Edge: Toca el menú (⋮) → <strong>"Aplicaciones"</strong> → <strong>"Instalar este sitio como aplicación"</strong>
+          </p>
+        </div>
+
+        <div class="step">
+          <span class="step-number">4</span>
+          <strong>¡Listo! Úsala como app nativa</strong>
+          <p style="margin: 10px 0 0 40px;">
+            El icono aparecerá en tu pantalla de inicio. Se abrirá en pantalla completa como una app normal.
+          </p>
+        </div>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>✅ Ventajas</h4>
+            <ul style="margin: 10px 0; padding-left: 20px;">
+              <li>Instalación instantánea</li>
+              <li>Actualizaciones automáticas</li>
+              <li>No ocupa espacio de APK</li>
+              <li>Funciona offline después de cargar</li>
+              <li>Sin permisos sospechosos</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>⚠️ Limitaciones</h4>
+            <ul style="margin: 10px 0; padding-left: 20px;">
+              <li>Requiere que el servidor esté corriendo</li>
+              <li>Solo en tu red local</li>
+              <li>No aparece en Google Play</li>
+            </ul>
+          </div>
+        </div>
+
+        <button class="btn-big btn-success" onclick="showIPGuide()">
+          📡 Ver cómo obtener tu IP local
+        </button>
+      </div>
+    </div>
+
+    <!-- MÉTODO 2: ApkOnline -->
+    <div class="method-card">
+      <div class="method-number">2</div>
+      <div class="method-title">
+        ApkOnline - Convertidor Web
+        <span class="method-time">⚡ 5 min</span>
+      </div>
+      <div class="method-content">
+        <div class="info-box">
+          <strong>💡 Buena opción:</strong> Genera un APK real que puedes compartir e instalar offline.
+        </div>
+
+        <div class="step">
+          <span class="step-number">1</span>
+          <strong>Crear archivo ZIP de tu proyecto</strong>
+          <p style="margin: 10px 0 0 40px;">
+            En Windows Explorer:<br>
+            • Selecciona todos los archivos de <code>ventamaestra2.0</code><br>
+            • Click derecho → "Enviar a" → "Carpeta comprimida (en ZIP)"<br>
+            • Nómbralo: <code>ventamaestra.zip</code>
+          </p>
+        </div>
+
+        <div class="step">
+          <span class="step-number">2</span>
+          <strong>Ir a ApkOnline Maker</strong>
+          <button class="btn-big btn-secondary" onclick="window.open('https://www.apkonline.net/es/apk-maker', '_blank')" style="margin: 10px 0 0 40px;">
+            🌐 Abrir ApkOnline Maker
+          </button>
+        </div>
+
+        <div class="step">
+          <span class="step-number">3</span>
+          <strong>Subir tu ZIP y configurar</strong>
+          <p style="margin: 10px 0 0 40px;">
+            • Click en "Choose File" → Selecciona tu ZIP<br>
+            • <strong>App Name:</strong> VentaMaestra 2.0<br>
+            • <strong>Start File:</strong> inicio.html<br>
+            • <strong>Icon:</strong> Sube icon-192.svg o usa el predeterminado<br>
+            • <strong>Orientation:</strong> Portrait (vertical)
+          </p>
+        </div>
+
+        <div class="step">
+          <span class="step-number">4</span>
+          <strong>Generar y descargar APK</strong>
+          <p style="margin: 10px 0 0 40px;">
+            • Click en "Create APK"<br>
+            • Espera 2-3 minutos (procesamiento)<br>
+            • Descarga el APK generado
+          </p>
+        </div>
+
+        <div class="step">
+          <span class="step-number">5</span>
+          <strong>Transferir a tu Android e instalar</strong>
+          <p style="margin: 10px 0 0 40px;">
+            • Transfiere el APK por USB, email, o WhatsApp<br>
+            • En Android: Abre el archivo APK<br>
+            • Acepta "Instalar desde fuentes desconocidas" si se solicita<br>
+            • ¡Instalado!
+          </p>
+        </div>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>✅ Ventajas</h4>
+            <ul style="margin: 10px 0; padding-left: 20px;">
+              <li>APK real instalable</li>
+              <li>Funciona 100% offline</li>
+              <li>No requiere servidor corriendo</li>
+              <li>Puedes compartir el APK</li>
+              <li>Sin conocimientos técnicos</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>⚠️ Limitaciones</h4>
+            <ul style="margin: 10px 0; padding-left: 20px;">
+              <li>APK puede ser grande (10-20 MB)</li>
+              <li>Para actualizar, generar nuevo APK</li>
+              <li>No firmado oficialmente</li>
+            </ul>
+          </div>
+        </div>
+
+        <button class="btn-big" onclick="createZipGuide()">
+          📦 Crear ZIP del proyecto
+        </button>
+        <button class="btn-big btn-secondary" onclick="window.open('https://www.apkonline.net/es/apk-maker', '_blank')">
+          🌐 Ir a ApkOnline Maker
+        </button>
+      </div>
+    </div>
+
+    <!-- MÉTODO 3: Cordova Local -->
+    <div class="method-card">
+      <div class="method-number">3</div>
+      <div class="method-title">
+        Cordova Local - APK Profesional
+        <span class="method-time" style="background: #ffc107;">⏱️ 30+ min</span>
+      </div>
+      <div class="method-content">
+        <div class="warning-box">
+          <strong>⚠️ Solo para usuarios avanzados:</strong> Requiere instalar varias herramientas y conocimientos técnicos.
+        </div>
+
+        <p><strong>Si ya tienes Node.js instalado:</strong></p>
+        
+        <div class="step">
+          <span class="step-number">1</span>
+          <strong>Ejecutar el script automatizado</strong>
+          <div style="background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 8px; margin: 10px 0 0 40px; font-family: monospace;">
+# PowerShell<br>
+.\generar-apk.ps1<br>
+<br>
+# O Command Prompt<br>
+generar-apk.bat
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="step-number">2</span>
+          <strong>Esperar la compilación</strong>
+          <p style="margin: 10px 0 0 40px;">
+            El script automáticamente:<br>
+            • Instala Cordova<br>
+            • Crea el proyecto<br>
+            • Agrega plataforma Android<br>
+            • Copia todos los archivos<br>
+            • Genera el APK: <code>VentaMaestra-2.0.apk</code>
+          </p>
+        </div>
+
+        <div class="info-box">
+          <strong>📋 Requisitos previos:</strong><br>
+          • Node.js 14+ instalado<br>
+          • Java JDK 8+ (para compilar)<br>
+          • Android SDK (descarga automática o manual)<br>
+          • Gradle (automático con Android SDK)<br>
+          • 2-3 GB de espacio en disco
+        </div>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>✅ Ventajas</h4>
+            <ul style="margin: 10px 0; padding-left: 20px;">
+              <li>APK profesional y optimizado</li>
+              <li>Control total del proceso</li>
+              <li>Listo para Play Store</li>
+              <li>Firmado correctamente</li>
+              <li>Actualizaciones controladas</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>⚠️ Limitaciones</h4>
+            <ul style="margin: 10px 0; padding-left: 20px;">
+              <li>Complejo para principiantes</li>
+              <li>Muchas dependencias</li>
+              <li>Puede fallar si falta algo</li>
+              <li>Requiere espacio y tiempo</li>
+            </ul>
+          </div>
+        </div>
+
+        <button class="btn-big" onclick="window.open('https://nodejs.org/', '_blank')">
+          📥 Descargar Node.js
+        </button>
+        <button class="btn-big btn-secondary" onclick="alert('Ejecuta en PowerShell:\\n.\\generar-apk.ps1\\n\\nO en CMD:\\ngenerar-apk.bat')">
+          🔧 Ver comandos para ejecutar
+        </button>
+      </div>
+    </div>
+
+    <div class="success-box" style="margin: 40px 0; text-align: center;">
+      <h3 style="margin-top: 0; color: #28a745;">🎯 Recomendación Final</h3>
+      <p style="font-size: 1.1em; margin: 15px 0;">
+        <strong>Para uso inmediato:</strong> Método 1 (PWA) - 2 minutos<br>
+        <strong>Para compartir con otros:</strong> Método 2 (ApkOnline) - 5 minutos<br>
+        <strong>Para publicar en Play Store:</strong> Usa PWA Builder (ver guía)
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 30px 0;">
+      <a href="generar-apk.html" class="btn-big">
+        📱 Ver todas las opciones de APK
+      </a>
+      <a href="guia-play-store.html" class="btn-big btn-secondary">
+        🏪 Guía para Play Store
+      </a>
+      <a href="inicio.html" class="btn-big" style="background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%);">
+        🏠 Volver al Inicio
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function showIPGuide() {
+      const guide = `
+🔍 CÓMO OBTENER TU IP LOCAL
+
+En Windows (donde corre el servidor):
+
+1. Presiona: Win + R
+2. Escribe: cmd
+3. Presiona Enter
+4. En la ventana negra, escribe: ipconfig
+5. Busca "Adaptador de LAN inalámbrica Wi-Fi" o "Adaptador de Ethernet"
+6. Copia la dirección IPv4 (ejemplo: 192.168.1.100)
+
+En tu Android:
+1. Abre Chrome o Edge
+2. Escribe en la barra: http://TU-IP:4000/inicio.html
+   Ejemplo: http://192.168.1.100:4000/inicio.html
+3. La app se cargará
+4. Menú → "Instalar aplicación"
+
+⚠️ Ambos dispositivos deben estar en la MISMA red WiFi
+      `.trim();
+      
+      alert(guide);
+    }
+
+    function createZipGuide() {
+      const guide = `
+📦 CREAR ZIP DEL PROYECTO
+
+MÉTODO 1 - Windows Explorer (Más Fácil):
+1. Abre la carpeta: C:\\Users\\abrah\\ventamaestra2.0
+2. Presiona Ctrl + A (seleccionar todo)
+3. Click derecho sobre los archivos seleccionados
+4. "Enviar a" → "Carpeta comprimida (en ZIP)"
+5. Nombra el archivo: ventamaestra.zip
+
+MÉTODO 2 - PowerShell:
+Compress-Archive -Path "C:\\Users\\abrah\\ventamaestra2.0\\*" -DestinationPath "C:\\Users\\abrah\\ventamaestra.zip"
+
+MÉTODO 3 - 7-Zip (si lo tienes instalado):
+1. Click derecho en la carpeta
+2. 7-Zip → "Agregar al archivo..."
+3. Formato: ZIP
+4. Nivel de compresión: Normal
+5. Comprimir
+
+El archivo ZIP resultante deberá tener aproximadamente 5-15 MB.
+
+Luego úsalo en ApkOnline Maker:
+https://www.apkonline.net/es/apk-maker
+      `.trim();
+      
+      alert(guide);
+      
+      // Intentar abrir la carpeta
+      setTimeout(() => {
+        if (confirm('¿Abrir la carpeta del proyecto ahora?')) {
+          window.location.href = 'file:///C:/Users/abrah/ventamaestra2.0';
+        }
+      }, 100);
+    }
+  </script>
+</body>
+</html>
