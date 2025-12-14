@@ -78,8 +78,6 @@ function handleSubmit(e) {
     updateStatus('Error al guardar el producto. Revisa la consola.');
   }
 }
-  }
-}
 
 function saveToLocalStorage() {
   localStorage.setItem('ventamaestra_products', JSON.stringify(productDatabase));
