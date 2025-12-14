@@ -32,10 +32,10 @@ function init() {
 }
 
 function attachEvents() {
-  productForm.addEventListener('submit', handleSubmit);
-  cancelBtn.addEventListener('click', resetForm);
-  productSearch.addEventListener('input', handleSearch);
-  productNameInput.focus();
+  if (productForm) productForm.addEventListener('submit', handleSubmit);
+  if (cancelBtn) cancelBtn.addEventListener('click', resetForm);
+  if (productSearch) productSearch.addEventListener('input', handleSearch);
+  if (productNameInput) productNameInput.focus();
 }
 
 function handleSubmit(e) {
@@ -128,22 +128,22 @@ function editProduct(id) {
   if (!product) return;
   
   editingProductId = id;
-  formTitle.textContent = 'Editar Producto';
+  if (formTitle) formTitle.textContent = 'Editar Producto';
   
-  productNameInput.value = product.name;
-  barcodeInput.value = product.barcode || '';
-  familyInput.value = product.family || '';
-  unitTypeInput.value = product.unitType || 'pieza';
-  purchasePriceInput.value = product.purchasePrice || '';
-  salePriceInput.value = product.salePrice;
-  wholesalePriceInput.value = product.wholesalePrice || '';
-  wholesaleQtyInput.value = product.wholesaleQty || '';
-  stockInput.value = product.stock;
-  expiryDateInput.value = product.expiryDate || '';
-  allowNegativeInput.checked = product.allowNegative;
+  if (productNameInput) productNameInput.value = product.name;
+  if (barcodeInput) barcodeInput.value = product.barcode || '';
+  if (familyInput) familyInput.value = product.family || '';
+  if (unitTypeInput) unitTypeInput.value = product.unitType || 'pieza';
+  if (purchasePriceInput) purchasePriceInput.value = product.purchasePrice || '';
+  if (salePriceInput) salePriceInput.value = product.salePrice;
+  if (wholesalePriceInput) wholesalePriceInput.value = product.wholesalePrice || '';
+  if (wholesaleQtyInput) wholesaleQtyInput.value = product.wholesaleQty || '';
+  if (stockInput) stockInput.value = product.stock;
+  if (expiryDateInput) expiryDateInput.value = product.expiryDate || '';
+  if (allowNegativeInput) allowNegativeInput.checked = product.allowNegative;
   
   updateStatus(`Editando producto: ${product.name}`);
-  productNameInput.focus();
+  if (productNameInput) productNameInput.focus();
 }
 
 function deleteProduct(id) {
@@ -160,16 +160,16 @@ function deleteProduct(id) {
 
 function resetForm() {
   editingProductId = null;
-  formTitle.textContent = 'Agregar Producto';
-  productForm.reset();
-  stockInput.value = '0';
-  allowNegativeInput.checked = true;
+  if (formTitle) formTitle.textContent = 'Agregar Producto';
+  if (productForm) productForm.reset();
+  if (stockInput) stockInput.value = '0';
+  if (allowNegativeInput) allowNegativeInput.checked = true;
   updateStatus('Formulario limpio. Listo para agregar nuevo producto.');
-  productNameInput.focus();
+  if (productNameInput) productNameInput.focus();
 }
 
 function updateStatus(msg) {
-  productStatus.textContent = msg;
+  if (productStatus) productStatus.textContent = msg;
 }
 
 // Hacer funciones globales para los botones
