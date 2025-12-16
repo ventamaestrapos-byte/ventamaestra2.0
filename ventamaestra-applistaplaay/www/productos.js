@@ -41,17 +41,24 @@ function attachEvents() {
 function handleSubmit(e) {
   e.preventDefault();
   
+  // Validar que existan los elementos necesarios
+  if (!productNameInput || !barcodeInput) {
+    console.error('Elementos del formulario no encontrados');
+    alert('Error: No se pueden cargar los campos del formulario. Recarga la página.');
+    return;
+  }
+  
   const product = {
     id: editingProductId || Date.now(),
     name: productNameInput.value.trim(),
     barcode: barcodeInput.value.trim(),
-    family: familyInput.value.trim(),
+    family: familyInput ? familyInput.value.trim() : '',
     unitType: unitTypeInput ? unitTypeInput.value : 'pieza',
-    purchasePrice: parseFloat(purchasePriceInput.value) || 0,
-    salePrice: parseFloat(salePriceInput.value) || 0,
-    wholesalePrice: parseFloat(wholesalePriceInput.value) || 0,
-    wholesaleQty: parseInt(wholesaleQtyInput.value) || 0,
-    stock: parseInt(stockInput.value) || 0,
+    purchasePrice: purchasePriceInput ? parseFloat(purchasePriceInput.value) || 0 : 0,
+    salePrice: salePriceInput ? parseFloat(salePriceInput.value) || 0 : 0,
+    wholesalePrice: wholesalePriceInput ? parseFloat(wholesalePriceInput.value) || 0 : 0,
+    wholesaleQty: wholesaleQtyInput ? parseInt(wholesaleQtyInput.value) || 0 : 0,
+    stock: stockInput ? parseInt(stockInput.value) || 0 : 0,
     expiryDate: expiryDateInput ? expiryDateInput.value : '',
     allowNegative: allowNegativeInput ? allowNegativeInput.checked : true
   };
@@ -86,6 +93,11 @@ function saveToLocalStorage() {
 }
 
 function renderProductsTable(filter = '') {
+  if (!productsTableBody) {
+    console.error('Tabla de productos no encontrada');
+    return;
+  }
+  
   productsTableBody.innerHTML = '';
   
   let filteredProducts = productDatabase;
@@ -114,6 +126,7 @@ function renderProductsTable(filter = '') {
       </td>
     `;
     
+  if (!productSearch) return;
     productsTableBody.appendChild(tr);
   });
 }
@@ -170,8 +183,12 @@ function resetForm() {
 
 function updateStatus(msg) {
   if (productStatus) productStatus.textContent = msg;
+} cuando el DOM esté listo
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
 }
-
 // Hacer funciones globales para los botones
 window.editProduct = editProduct;
 window.deleteProduct = deleteProduct;
